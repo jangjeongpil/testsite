@@ -1,0 +1,455 @@
+<%- include('../../common/adminheader.ejs') %>
+<script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+<title>고객사 및 협력사 수정 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>고객사 및 협력사 수정</h1>          
+            <form method="POST" action="/customer_update" onsubmit="return contentsCheck();">
+                <%
+                var data = customerOne;
+                %>
+                <% if(data != null) { %>
+                <div class="write_table">
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>시리얼</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="serial" value="<%= data.serial %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>고객사/협력사</span>
+                        </div>
+                        <div class="write_table_div2_option">
+                            <select name="companyOption" title="companyOption">
+                                <option id="customer" value="customer" selected>고객사</option>
+                            </select>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>고객사명</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="companyName" name="companyName" value="<%= data.companyName %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="companyMessage">※ 고객사명을 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>링크</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="companyLink" name="link" value="<%= data.link %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="linkMessage">※ 링크를 등록해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>이미지 등록</span>
+                        </div>
+                        <div class="write_table_div2_upload">
+                            <input type="file" id="imagefile" name="imagefile"/>
+                            <div class="resizeBtnDiv">
+                                <input type="button" id="resizeBtn" class="resizeBtn" value="이미지 편집"/>
+                            </div>  
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="imageMessage">※ 기존 사진이 등록되어 있습니다. (권장 사이즈 : 204 x 83 px)</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>공개/비공개</span>
+                        </div>
+                        <div class="write_table_div2_option">
+                            <select name="hiddenYN" title="hiddenYN">
+                                <option value="N">공개</option>
+                                <option value="Y" <% if(data.hiddenYN == 'Y') { %> selected <% } %>>비공개</option>
+                            </select>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>수정자명</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="modifier" value="<%= loginMember.name %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>수정일</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="modifydate" name="modifydate" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_btn">
+                        <input type="submit" value="수정"/>
+                        <a href="/admin/customer_delete?serial=<%= data.serial %>">
+                            <span>삭제</span>
+                        </a>
+                        <a href="/admin/partner">
+                            <span>돌아가기</span>
+                        </a>
+                    </div>
+                    <div style="font-size: 12px;">작성자: <%= data.writer %> / 작성일: <%=data.date %> / 수정자: <%= data.modifier %> / 수정일: <%=data.modifydate %></div>
+                </div>
+                <% } %>
+            </form>
+            <form method="POST" action="/partner_update" onsubmit="return contentsCheck();">
+                <%
+                var data2 = partnerOne;
+                %>
+                <% if(data2 != null) { %>
+                    <div class="write_table">
+                        <div class="write_table_div" style="display: none;">
+                            <div class="write_table_div1">
+                                <span>시리얼</span>
+                            </div>
+                            <div class="write_table_div2">
+                                <input type="text" name="serial" value="<%= data2.serial %>">
+                            </div>
+                            <div class="write_table_div3">
+                                
+                            </div>
+                        </div>
+                        <div class="write_table_div">
+                            <div class="write_table_div1">
+                                <span>고객사/협력사</span>
+                            </div>
+                            <div class="write_table_div2_option">
+                                <select name="companyOption" title="companyOption">
+                                    <option id="partner" value="partner" selected>협력사</option>
+                                </select>
+                            </div>
+                            <div class="write_table_div3">
+                                
+                            </div>
+                        </div>
+                        <div class="message_table_div">
+                            <div class="message_table_div1">
+                            
+                            </div>
+                            <div class="message_table_div2">
+                                <span></span>
+                            </div>
+                            <div class="message_table_div3">
+                            
+                            </div>
+                        </div>
+                        <div class="write_table_div">
+                            <div class="write_table_div1">
+                                <span>고객사명</span>
+                            </div>
+                            <div class="write_table_div2">
+                                <input type="text" id="partnerName" name="companyName" value="<%= data2.companyName %>">
+                            </div>
+                            <div class="write_table_div3">
+                                
+                            </div>
+                        </div>
+                        <div class="message_table_div">
+                            <div class="message_table_div1">
+                            
+                            </div>
+                            <div class="message_table_div2">
+                                <span id="partnerMessage">※ 고객사명을 입력해주세요.</span>
+                            </div>
+                            <div class="message_table_div3">
+                            
+                            </div>
+                        </div>
+                        <div class="write_table_div">
+                            <div class="write_table_div1">
+                                <span>링크</span>
+                            </div>
+                            <div class="write_table_div2">
+                                <input type="text" id="partnerLink" name="link" value="<%= data2.link %>">
+                            </div>
+                            <div class="write_table_div3">
+                                
+                            </div>
+                        </div>
+                        <div class="message_table_div">
+                            <div class="message_table_div1">
+                            
+                            </div>
+                            <div class="message_table_div2">
+                                <span id="linkMessage2">※ 링크를 등록해주세요.</span>
+                            </div>
+                            <div class="message_table_div3">
+                            
+                            </div>
+                        </div>
+                        <div class="write_table_div">
+                            <div class="write_table_div1">
+                                <span>이미지 등록</span>
+                            </div>
+                            <div class="write_table_div2_upload">
+                                <input type="file" id="imagefile2" name="imagefile"/>
+                                <div class="resizeBtnDiv">
+                                    <input type="button" id="resizeBtn" class="resizeBtn" value="이미지 편집"/>
+                                </div>  
+                            </div>
+                            <div class="write_table_div3">
+                                
+                            </div>
+                        </div>
+                        <div class="message_table_div">
+                            <div class="message_table_div1">
+                            
+                            </div>
+                            <div class="message_table_div2">
+                                <span id="imageMessage2">※ 기존 사진이 등록되어 있습니다. (권장 사이즈 : 204 x 83 px)</span>
+                            </div>
+                            <div class="message_table_div3">
+                            
+                            </div>
+                        </div>
+                        <div class="write_table_div">
+                            <div class="write_table_div1">
+                                <span>공개/비공개</span>
+                            </div>
+                            <div class="write_table_div2_option">
+                                <select name="hiddenYN" title="hiddenYN">
+                                    <option value="N">공개</option>
+                                    <option value="Y" <% if(data2.hiddenYN == 'Y') { %> selected <% } %>>비공개</option>
+                                </select>
+                            </div>
+                            <div class="write_table_div3">
+                                
+                            </div>
+                        </div>
+                        <div class="message_table_div">
+                            <div class="message_table_div1">
+                            
+                            </div>
+                            <div class="message_table_div2">
+                                <span></span>
+                            </div>
+                            <div class="message_table_div3">
+                            
+                            </div>
+                        </div>
+                        <div class="write_table_div" style="display: none;">
+                            <div class="write_table_div1">
+                                <span>수정자명</span>
+                            </div>
+                            <div class="write_table_div2">
+                                <input type="text" name="modifier" value="<%= loginMember.name %>">
+                            </div>
+                            <div class="write_table_div3">
+                                
+                            </div>
+                        </div>
+                        <div class="write_table_div" style="display: none;">
+                            <div class="write_table_div1">
+                                <span>수정일</span>
+                            </div>
+                            <div class="write_table_div2">
+                                <input type="text" id="modifydate2" name="modifydate" value="">
+                            </div>
+                            <div class="write_table_div3">
+                                
+                            </div>
+                        </div>
+                        <div class="write_table_btn">
+                            <input type="submit" value="수정"/>
+                            <a href="/admin/partner_delete?serial=<%= data2.serial %>">
+                                <span>삭제</span>
+                            </a>
+                            <a href="/admin/partner">
+                                <span>돌아가기</span>
+                            </a>
+                        </div>
+                        <div style="font-size: 12px;">작성자: <%= data2.writer %> / 작성일: <%=data2.date %> / 수정자: <%= data2.modifier %> / 수정일: <%=data2.modifydate %></div>
+                    </div>
+                    <% } %>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+// 필수사항 입력 체크 함수
+function contentsCheck() {
+    var customer = $('#customer').val();
+    var partner = $('#partner').val()
+    if(customer == 'customer') {
+        var companyName = $('#companyName').val();
+        var companyLink = $('#companyLink').val();
+        if(companyName == "" || companyLink == "") {
+            alert('필수항목을 입력해주세요.');
+            return false;
+        }
+    }
+    if(partner == 'partner') {
+        var partnerName = $('#partnerName').val();
+        var partnerLink = $('#partnerLink').val();
+        if(partnerName == "" || partnerLink == "") {
+            alert('필수항목을 입력해주세요.');
+            return false;
+        }
+    }        
+}
+
+$(function() {
+    $(function init() { 
+        // 수정일 오늘 날짜 자동기입
+        $('#modifydate').attr('value', todayDate());
+        $('#modifydate2').attr('value', todayDate());
+
+        // 데이터 유무에 따른 알림 메시지 공개/비공개
+        if($('#companyName').val() != "") {
+            $('#companyMessage').css('display', 'none');
+        }else {
+            $('#companyMessage').css('display', 'block');
+        }
+        if($('#companyLink').val() != "") {
+            $('#linkMessage').css('display', 'none');
+        }else {
+            $('#linkMessage').css('display', 'block');
+        }
+        if($('#partnerName').val() != "") {
+            $('#partnerMessage').css('display', 'none');
+        }else {
+            $('#partnerMessage').css('display', 'block');
+        }
+        if($('#partnerLink').val() != "") {
+            $('#linkMessage2').css('display', 'none');
+        }else {
+            $('#linkMessage2').css('display', 'block');
+        }
+
+        // 데이터 유무에 따른 알림 메시지 공개/비공개
+        $('#companyName').change(function() {
+            if($('#companyName').val() != "") {
+                $('#companyMessage').css('display', 'none');
+            }else {
+                $('#companyMessage').css('display', 'block');
+            }
+        });  
+        $('#companyLink').change(function() {
+            if($('#companyLink').val() != "") {
+                $('#linkMessage').css('display', 'none');
+            }else {
+                $('#linkMessage').css('display', 'block');
+            }
+        });
+        $('#imagefile').change(function() {
+            if($('#imagefile')[0].files.length != 0) {
+                $('#imageMessage').css('display', 'none');
+            }else {
+                $('#imageMessage').css('display', 'block');
+            }
+        });   
+
+        $('#partnerName').change(function() {
+            if($('#partnerName').val() != "") {
+                $('#partnerMessage').css('display', 'none');
+            }else {
+                $('#partnerMessage').css('display', 'block');
+            }
+        });  
+        $('#partnerLink').change(function() {
+            if($('#partnerLink').val() != "") {
+                $('#linkMessage2').css('display', 'none');
+            }else {
+                $('#linkMessage2').css('display', 'block');
+            }
+        });
+        $('#imagefile2').change(function() {
+            if($('#imagefile2')[0].files.length != 0) {
+                $('#imageMessage2').css('display', 'none');
+            }else {
+                $('#imageMessage2').css('display', 'block');
+            }
+        }); 
+           
+        // 이미지 편집기 실행
+        $('#resizeBtn').on('click', function() {
+            window.open("/admin/imageeditor", "이미지 편집화면", "width=1070, height=530, top=0, left=0 overflow=hidden");
+        });
+    });
+});      
+</script>
+<%- include('../../common/adminfooter.ejs') %>

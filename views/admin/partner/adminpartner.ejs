@@ -1,0 +1,160 @@
+<%- include('../../common/adminheader.ejs') %>
+<title>고객사 및 협력사 수정 페이지 - 테스트용 사이트</title>
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>고객사 및 협력사 수정 페이지</h1>          
+            <form>
+                <a href="/admin/partner/write">
+                    <div class="admin_parter_addBtn">
+                        <h3>+</h3>
+                    </div>
+                 </a>
+                <div class="sp1Partner">
+                    <div class="sp1Partner_sub">
+                        <div class="sp1Partner_sub2">
+                            <div class="sp1Partner_sub3">
+                                <div class="sp1Partner_sub4">
+                                    <div class="sp1Partner_sub5">
+                                        <div class="sp1Partner_sub6">
+                                            <div class="sp1Partner_sub7">
+                                                <div class="sp1Partner_sub8">
+                                                    <div class="sp1Partner_sub9">
+                                                        <div class="sp1Partner_sub10">
+                                                            <div class="sp1Partner_sub11">
+                                                                <div class="sp1Partner_sub12">
+                                                                    <div class="sp1Partner_sub13">
+                                                                        <div class="sp1Partner_sub14">
+                                                                            <div class="sp1Partner_sub15">
+                                                                                <div class="sp1Partner_sub16">
+                                                                                    <div class="sp1Partner_sub16_title">
+                                                                                        <div class="sp1Partner_sub16_title_sub">
+                                                                                            <h2>고객사</h2>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="sp1Partner_sub16_partner">
+                                                                                        <div class="sp1Partner_sub16_partner_sub">
+                                                                                            <div class="sp1Partner_sub16_partner_sub2">
+                                                                                                <%
+                                                                                                for(var i = 0; i < customerList.length; i++) {
+                                                                                                    var data = customerList[i];
+                                                                                                %> 
+                                                                                                <div class="sp1Partner_sub16_partner_sub3">
+                                                                                                    <a href="/admin/partner/modify?serial=<%= data.serial %>">
+                                                                                                        <div class="sp1Partner_sub16_partner_sub4">
+                                                                                                            <img src="/uploads/<%= data.imagename %>">
+                                                                                                        </div>
+                                                                                                        <div class="sp1Partner_sub16_partner_sub4_2">
+                                                                                                            <h3><%= data.companyName %></h3>
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <% } %>                                                                                              
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>																
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blankContents">
+                    <div class="blankContents_sub">
+                        <div class="blankContents_sub2">
+                            <div class="blankContents_sub3">
+                                <div class="blankContents_sub4">
+                                    <div class="blankContents_sub5">
+                                        <div class="blankContents_sub6">
+                                            <div class="blankContents_sub7">
+                                                <div class="blankContents_sub8">
+                                                    <div class="blankContents_sub9">
+                                                    </div>	
+                                                </div>	
+                                            </div>	
+                                        </div>	
+                                    </div>	
+                                </div>	
+                            </div>	
+                        </div>	
+                    </div>	
+                </div>
+
+                <div class="sp1Partner">
+                    <div class="sp1Partner_sub">
+                        <div class="sp1Partner_sub2">
+                            <div class="sp1Partner_sub3">
+                                <div class="sp1Partner_sub4">
+                                    <div class="sp1Partner_sub5">
+                                        <div class="sp1Partner_sub6">
+                                            <div class="sp1Partner_sub7">
+                                                <div class="sp1Partner_sub8">
+                                                    <div class="sp1Partner_sub9">
+                                                        <div class="sp1Partner_sub10">
+                                                            <div class="sp1Partner_sub11">
+                                                                <div class="sp1Partner_sub12">
+                                                                    <div class="sp1Partner_sub13">
+                                                                        <div class="sp1Partner_sub14">
+                                                                            <div class="sp1Partner_sub15">
+                                                                                <div class="sp1Partner_sub16">
+                                                                                    <div class="sp1Partner_sub16_title">
+                                                                                        <div class="sp1Partner_sub16_title_sub">
+                                                                                            <h2>협력사</h2>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="sp1Partner_sub16_partner">
+                                                                                        <div class="sp1Partner_sub16_partner_sub">
+                                                                                            <div class="sp1Partner_sub16_partner_sub2">
+                                                                                                <%
+                                                                                                for(var i = 0; i < partnerList.length; i++) {
+                                                                                                    var data = partnerList[i];
+                                                                                                %>
+                                                                                                <div class="sp1Partner_sub16_partner_sub3">
+                                                                                                    <a href="/admin/partner/modify?serial=<%= data.serial %>">
+                                                                                                        <div class="sp1Partner_sub16_partner_sub4">
+                                                                                                            <img src="/uploads/<%= data.imagename %>">
+                                                                                                        </div>
+                                                                                                        <div class="sp1Partner_sub16_partner_sub4_2">
+                                                                                                            <h3><%= data.companyName %></h3>
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <% } %>                                                                                               
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>																
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../../common/adminfooter.ejs') %>

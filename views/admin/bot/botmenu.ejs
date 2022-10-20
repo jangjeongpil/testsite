@@ -1,0 +1,53 @@
+<%- include('../../common/adminheader.ejs') %>
+<title>BOT 메뉴 페이지 - 테스트용 사이트</title>
+
+<div class="admin_mobile_menu_body">
+    <div class="admin_mobile_content">
+        <div class="mobile_profile">
+            <h3><%= loginMember.name %>님 환영합니다. <a href="/admin_logout">[로그아웃]</a></h2>   
+        </div>
+        <% 
+        if(selectMenu == "tool") {
+        %>
+        <div class="admin_mobile_menu_contentwrap">
+            <h1>장비 선택</h1>
+            <% 
+            for(var i = 0; i < representTool.length; i++) {
+                var data = representTool[i].productType;
+            %>
+            <a href="http://192.168.160.186:9000/admin/tool/uselist?selecttool=<%= data %>"><%= data %></a>
+            <%        
+            }
+        }else {
+        %>
+        <div class="admin_mobile_menu_contentwrap">
+            <h1>도서 선택</h1>
+            <% 
+            for(var i = 0; i < representBook.length; i++) {
+                var data = representBook[i].bookType;
+            %>
+            <a href="http://192.168.160.186:9000/admin/book/uselist?selectbook=<%= data %>"><%= data %></a>
+            <%        
+            }
+        }
+        %> 
+        </div>
+    </div>
+</div>  
+<%- include('../../common/adminfooter.ejs') %>
+<script>
+$(function() {
+    $(function init() {   
+        $('.admin_mobile_body').hide();
+
+        $('#menu_back_btn').on('click', function() {
+            history.back();
+        });
+
+        $('#menu_exit_btn2').on('click', function() {
+            window.close();
+            oneapp.close();
+        });    
+    });
+});
+</script>

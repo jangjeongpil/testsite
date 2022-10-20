@@ -1,0 +1,140 @@
+<%- include('../../common/adminheader.ejs') %>
+<title>사용자 관리 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>사용자 권한 수정</h1>          
+            <form method="POST" action="/member_update">
+                <%
+                    var data = memberOne;
+                %>
+                <div class="write_table">
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>이름</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.name %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>이메일</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <input type="text" name="email" value="<%= data.email %>" style="display: none;">
+                            <span><%= data.email %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>연락처</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.phone %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>직급</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.level %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>관리자 등급</span>
+                        </div>
+                        <div class="write_table_div2_option">
+                            <select name="adminlevel" title="adminlevel"> 
+                                <option value="슈퍼관리자" <% if(data.adminlevel == '슈퍼관리자') { %> selected <% } %>>슈퍼관리자</option>
+                                <option value="관리자" <% if(data.adminlevel == '관리자') { %> selected <% } %>>관리자</option>
+                                <option value="사용자" <% if(data.adminlevel == '사용자') { %> selected <% } %>>사용자</option>
+                            </select>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_btn">
+                        <input type="submit" value="권한 수정"/>
+                        <a href="/admin/member">
+                            <span>돌아가기</span>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../../common/adminfooter.ejs') %>

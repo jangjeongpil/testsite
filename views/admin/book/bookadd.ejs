@@ -1,0 +1,340 @@
+<%- include('../../common/adminheader.ejs') %>
+<script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="/node_modules/xlsx/dist/xlsx.full.min.js"></script>
+<title>관리도서 추가 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>관리도서 추가</h1>          
+            <form method="POST" enctype="multipart/form-data", action="/book_create" onsubmit="return contentsCheck();">
+                <div class="write_table">
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>유형</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="bookType" id="bookType" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="bookTypeMessage">※ 도서유형을 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>관리번호</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="managementNumber" name="managementNumber" value="" maxlength="5">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="managementNumberMessage">※ 관리번호를 입력해주세요. (예시: B0000)</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>도서명</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="bookName" name="bookName" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="bookNameMessage">※ 도서명을 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>구매일</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="purchaseDate" name="purchaseDate" value="" onKeyup="this.value=this.value.replace(/[^[0-9]/g, '');" maxlength="8">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>개정년도</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="revisionYear" name="revisionYear" value="" onKeyup="this.value=this.value.replace(/[^[0-9]/g, '');" maxlength="4">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="revisionYearMessage">※ 개정년도를 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>목차 링크</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="link" name="link" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="linkMessage">※ 링크를 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>이미지 등록</span>
+                        </div>
+                        <div class="write_table_div2_upload">
+                            <input type="file" id="imagefile" name="imagefile"/>
+                            <div class="resizeBtnDiv">
+                                <input type="button" id="resizeBtn" class="resizeBtn" value="이미지 편집"/>
+                            </div>  
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="imageMessage">※ 사진을 등록해주세요. (권장 사이즈 : 150 x 250 px)</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>비고</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="reference" name="reference" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>작성자명</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="writer" value="<%= loginMember.name %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>작성일</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="date" id="date" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_btn">
+                        <input type="submit" value="등록"/>
+                        <a id="excel_uploadBtn" href="javascript:void(0);">
+                            <span>엑셀 업로드</span>
+                        </a>
+                        <input type="file" id="excel_upload" style="display: none;">
+                        <a href="/admin/book">
+                            <span>돌아가기</span>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+// 필수사항 입력 체크 함수
+function contentsCheck() {
+    if($('#managementNumber').val() == "" || $('#bookName').val() == "" || $('#revisionYear').val() == "" || $('#link').val() == "" || $('#imagefile')[0].files.length === 0) {
+        alert('필수항목을 입력해주세요.');
+        return false;
+    }
+}
+
+$(function() {
+    $(function init() { 
+        // 작성일 오늘 날짜 자동기입
+        $('#date').attr('value', todayDate());        
+        
+        // 관리번호 플래터 적용
+        $('#managementNumber').change(function() {
+            var $this =  $('#managementNumber').val();
+            var formatnumber = manageformat($this);
+            $('#managementNumber').val(formatnumber);
+        });
+        // 날짜 플래터 적용
+        $('#purchaseDate').change(function() {
+            var $this =  $('#purchaseDate').val();
+            var formatdate = dayformat($this);
+            $('#purchaseDate').val(formatdate);
+        });
+
+        // 데이터 유무에 따른 알림 메시지 공개/비공개
+        $('#managementNumber').change(function() {
+            if($('#managementNumber').val() != "") {
+                $('#managementNumberMessage').css('display', 'none');
+            }else {
+                $('#managementNumberMessage').css('display', 'block');
+            }
+        });   
+        $('#bookType').change(function() {
+            if($('#bookType').val() != "") {
+                $('#bookTypeMessage').css('display', 'none');
+            }else {
+                $('#bookTypeMessage').css('display', 'block');
+            }
+        });   
+        $('#bookName').change(function() {
+            if($('#bookName').val() != "") {
+                $('#bookNameMessage').css('display', 'none');
+            }else {
+                $('#bookNameMessage').css('display', 'block');
+            }
+        });   
+        $('#revisionYear').change(function() {
+            if($('#revisionYear').val() != "") {
+                $('#revisionYearMessage').css('display', 'none');
+            }else {
+                $('#revisionYearMessage').css('display', 'block');
+            }
+        });   
+        $('#link').change(function() {
+            if($('#link').val() != "") {
+                $('#linkMessage').css('display', 'none');
+            }else {
+                $('#linkMessage').css('display', 'block');
+            }
+        });  
+        $('#imagefile').change(function() {
+            if($('#imagefile')[0].files.length != 0) {
+                $('#imageMessage').css('display', 'none');
+            }else {
+                $('#imageMessage').css('display', 'block');
+            }
+        }); 
+
+        // 이미지 편집기 실행
+        $('#resizeBtn').on('click', function() {
+            window.open("/admin/imageeditor", "이미지 편집화면", "width=1070, height=530, top=0, left=0 overflow=hidden");
+        });
+
+        $('#excel_uploadBtn').on('click', function() {
+            $('#excel_upload').trigger('click');
+        });
+
+        // 엑셀 업로드 함수
+        function readExcel() {
+            if($('#excel_upload')[0].files.length != 0) {
+                let input = event.target;
+                let reader = new FileReader();
+                reader.onload = function () {
+                    let data = reader.result;
+                    let workBook = XLSX.read(data, { type: 'binary' });
+                    workBook.SheetNames.forEach(function (sheetName) {
+                        let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
+                        $('#bookType').val(rows[0].유형);
+                        $('#managementNumber').val(rows[0].관리번호);
+                        $('#bookName').val(rows[0].도서명);
+                        $('#purchaseDate').val(rows[0].구매일);
+                        $('#revisionYear').val(rows[0].개정년도);
+                        $('#link').val(rows[0].링크);
+                        $('#reference').val(rows[0].비고);
+                    })
+                };
+                reader.readAsBinaryString(input.files[0]);
+            }
+        }
+
+        $('#excel_upload').on('change', function() {
+            if(confirm('입력칸에 엑셀파일을 업로드하시겠습니까?')) {
+                readExcel();
+                $('#excel_upload').val("");
+            }    
+        });
+    });
+});
+</script>
+<%- include('../../common/adminfooter.ejs') %>

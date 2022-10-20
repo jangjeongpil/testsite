@@ -1,0 +1,158 @@
+<%- include('../../common/adminheader.ejs') %>
+<script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+<title>도서 대여확인 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>도서 대여확인</h1>          
+            <form>
+                <div class="btn_table" style="width:1188px;">
+                    <div class="btn_table_title">
+                    </div>   
+                    <div class="btn_table_btn"> 
+                        <a class="page-title-action" id="use_check">대여승인</a>
+                        <a class="page-title-action" id="use_refuse">대여반려</a>
+                        <a class="page-title-action" href="/admin/book">돌아가기</a>
+                    </div>                
+                </div>
+                <table class="admin_board" style="width: 1200px; font-size: 13px;">
+                    <thead>
+                        <tr>
+                            <th class="allcheck">
+                                <label class="allcheck_column" for="allcheck_column">모두 선택</label>
+                                <input class="allcheck_column_input" id="allcheck_column" type="checkbox">
+                            </th>
+                            <th class="adminboard_head" style="width: 20%; font-size: 14px;">
+                                <span>이미지</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 18%; font-size: 14px;">
+                                <span>유형</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 10%; font-size: 14px;">
+                                <span>관리번호</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 15%; font-size: 14px;">
+                                <span>제품명</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 7%; font-size: 14px;">
+                                <span>사용여부</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 8%; font-size: 14px;">
+                                <span>사용자</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 11%; font-size: 14px;">
+                                <span>대여신청일</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 11%; font-size: 14px; border-right: none;">
+                                <span>대여완료일</span>
+                            </th>                                     
+                        </tr>
+                    </thead>
+                    <tbody class="adminboard_body" style="font-size: 12px;">
+                        <% 
+                        for(var i = 0; i < bookList.length; i++) {
+                        var data = bookList[i];
+                            if(data.useYN != "Y" && data.user != "") {       
+                        %>
+                        <tr>
+                            <th>
+                                <label class="screen-reader-text" for="cb<%= i %>"></label>
+                                <input id="cb<%= i %>" class="checkbox" type="checkbox" name="useCheckbox" value="<%= data.managementNumber %>">    
+                            </th>
+                            <td style="text-align: center;">
+                                <span><% if(data.imagename != "") { %><img src="/uploads/<%= data.imagename %>" style="width:60%; max-height:170px; margin-top: 10px"><% } %></span>   
+                            </td>
+                            <td>
+                                <span><%= data.bookType %></span>    
+                            </td>
+                            <td>
+                                <span><%= data.managementNumber %></span>
+                            </td>
+                            <td>
+                                <span><%= data.bookName %></span>
+                            </td>
+                            <td>
+                                <span><%= data.useYN %></span>
+                            </td> 
+                            <td>
+                                <span><%= data.user %></span>
+                            </td>    
+                            <td>
+                                <span><%= data.useStartDate %></span>
+                            </td>    
+                            <td>
+                                <span><%= data.useEndDate %></span>
+                            </td>                       
+                        </tr>
+                        <% 
+                            } 
+                        }
+                        %>
+                    </tbody>
+               </table>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+$(function() {
+    $(function init() {       
+        var allcheck_column = $('#allcheck_column'); // 전체 선택
+        var use_check = $('#use_check'); // 대여승인 버튼
+        var use_refuse = $('#use_refuse'); // 대여반려 버튼
+
+        // 전체 선택 클릭 시 컬럼 전체 선택/해제
+        allcheck_column.on('click', function() {
+            if(allcheck_column.is(":checked")) {
+                $("input[name=useCheckbox]").prop("checked", true);
+            }else {
+                $("input[name=useCheckbox]").prop("checked", false);
+            }
+        });
+
+        // 대여승인 버튼 클릭 시 대여승인 처리(POST 전송)
+        use_check.on('click', function() {
+            var dataArray = [];
+
+            $("input[name=useCheckbox]:checked").each(function() {
+                var $this = $(this);
+                dataArray.push({managementNumber: $this.val()});
+            });
+            dataArray = JSON.stringify(dataArray);
+            
+            $.ajax({
+                type: "POST",
+                url: '/book_use_approval',
+                headers: {
+                    "Content-Type": "application/json"
+                },                
+                data: dataArray
+            });
+            location.href = "/admin/book/use_check";      
+        });
+
+        // 대여반려 버튼 클릭 시 대여반려 처리(POST 전송)
+        use_refuse.on('click', function() {
+            var refuseArray = [];
+
+            $("input[name=useCheckbox]:checked").each(function() {
+                var $this = $(this);
+                refuseArray.push({managementNumber: $this.val()});
+            });
+            refuseArray = JSON.stringify(refuseArray);
+
+            $.ajax({
+                type: "POST",
+                url: '/book_use_refuse',
+                headers: {
+                    "Content-Type": "application/json"
+                },                
+                data: refuseArray
+            });
+            location.href = "/admin/book/use_check";   
+        });
+    });
+});      
+</script>
+<%- include('../../common/adminfooter.ejs') %>

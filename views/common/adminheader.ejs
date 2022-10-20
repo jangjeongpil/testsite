@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="No-Cache">
+    <link rel="shortcut icon" href="/images/ico.jpg" type="image/ico" />
+    <link href="/css/dashicons.min.css" id="dashicons-css" rel="stylesheet" type="text/css" media="all">
+    <link href="/css/admin.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+</head>
+<body>
+    <div class="adminwrap">
+        <div class="adminmenumain">
+            <div class="admin_menubar">
+            </div>
+            <div class="admin_menuwrap">
+                <ul class="adminmenu">
+
+                    <!-- 좌측 메뉴바 라인 -->
+                    <li class="adminmenu_sub">
+                        <a class="adminmenu_btn" href="/admin/main">
+                            <div class="adminmenu_btn dashicons-before ab-item" aria-hidden="true">
+                            </div>
+                            <div class="adminmenu_name">홈</div>
+                        </a>
+                    </li>
+                    <li class="adminmenu_sub" id="aboutcompanyBtn">
+                        <a class="adminmenu_btn" href="/admin/history">
+                            <div class="adminmenu_btn dashicons-before ab-item" aria-hidden="true">
+                            </div>
+                            <div class="adminmenu_name">회사소개</div>
+                        </a>
+                    </li>
+                    <li class="adminmenu_sub" id="portfolioBtn">
+                        <a class="adminmenu_btn">
+                            <div class="adminmenu_btn dashicons-before dashicons-admin-post" aria-hidden="true">
+                            </div>
+                            <div class="adminmenu_name">포트폴리오</div>
+                        </a>
+                        <ul class="adminmenu_submenu" id="portfolioColumn">
+                            <li class="adminmenu_submenu_list">
+                                <a class="adminmenu_submenu_link" href="/admin/portfolio">
+                                    구축실적
+                                </a>                           
+                            </li>
+                            <li class="adminmenu_submenu_list">
+                                <a class="adminmenu_submenu_link" href="/admin/partner">
+                                    고객사 및 협력사
+                                </a>                           
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="adminmenu_sub">
+                        <a class="adminmenu_btn" href="/admin/member">
+                            <div class="adminmenu_btn dashicons-before ab-item" aria-hidden="true">
+                            </div>
+                            <div class="adminmenu_name">사용자관리</div>
+                        </a>
+                    </li>
+                    <li class="adminmenu_sub">
+                        <a class="adminmenu_btn" href="/admin/code">
+                            <div class="adminmenu_btn dashicons-before ab-item" aria-hidden="true">
+                            </div>
+                            <div class="adminmenu_name">공통코드관리</div>
+                        </a>
+                    </li>
+                    <li class="adminmenu_sub" id="botBtn">
+                        <a class="adminmenu_btn">
+                            <div class="adminmenu_btn dashicons-before dashicons-admin-post" aria-hidden="true">
+                            </div>
+                            <div class="adminmenu_name">BOT관리</div>
+                        </a>
+                        <ul class="adminmenu_submenu" id="botColumn">
+                            <li class="adminmenu_submenu_list">
+                                <a class="adminmenu_submenu_link" href="/admin/bot/selecttool">
+                                    장비유형 선택
+                                </a>                           
+                            </li>
+                            <li class="adminmenu_submenu_list">
+                                <a class="adminmenu_submenu_link" href="/admin/bot/selectbook">
+                                    도서유형 선택
+                                </a>                           
+                            </li>
+                            <li class="adminmenu_submenu_list">
+                                <a class="adminmenu_submenu_link" href="/admin/bot/selectadmin">
+                                    관리자 알림
+                                </a>                           
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="adminmenu_sub">
+                        <a class="adminmenu_btn" href="/admin/tool">
+                            <div class="adminmenu_btn dashicons-before ab-item" aria-hidden="true">
+                            </div>
+                            <div class="adminmenu_name">장비관리</div>
+                        </a>
+                    </li>
+                    <li class="adminmenu_sub">
+                        <a class="adminmenu_btn" href="/admin/book">
+                            <div class="adminmenu_btn dashicons-before ab-item" aria-hidden="true">
+                            </div>
+                            <div class="adminmenu_name">도서관리</div>
+                        </a>
+                    </li>
+                    <!-- End -->
+                    
+                </ul>
+            </div> 
+        </div>
+        <div class="adminmain_contents">
+            <div class="adminmain_minibar">
+                <!-- 상단 라인 -->
+                <div class="minibar_wrap">
+
+                    <!-- 로고 및 홈페이지명 -->
+                    <ul class="minibar_list">
+                        <li class="minibar_logo">
+                            <a aria-haspopup="true" href="/admin/main">
+                                <img src="/images/whiteico.png" title="whiteico">
+                            </a>
+                        </li>
+                        <li class="minibar_contents" id="sp1site">
+                            <a class="adminmenu_btn dashicons-before ab-item" href="/">테스트용 사이트</a>
+                            <div class="adminmain_sp1sitewrap" id="sp1sitewrap">
+                                <ul class="adminmain_sp1sitewrap_sub">
+                                    <li class="adminmain_sp1sitewrap_sub2">
+                                        <a href="/">사이트 방문</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- End -->  
+
+                    <!-- 접속자 이름 표기 -->
+                    <ul class="minibar_admin">
+                        <li class="minibar_admin_account" id="admin_profile_link">
+                            <a>
+                                안녕하세요.&nbsp;&nbsp;
+                                <span class="display-name"><%= loginMember.name %>  </span>
+                                님&nbsp;&nbsp;
+                            </a>
+                            <div class="admin_profile" id="admin_profile_Info">
+                                <ul class="admin_profile_sub">
+                                    <li class="admin_profile_sub_info">
+                                        <span class="display-name"><%= loginMember.name %>님의 관리자 등급 : <%= loginMember.adminlevel %> </span>
+                                        <span id="loginmember_adminlevel" style="display: none;"><%= loginMember.adminlevel %></span>
+                                    </li>
+                                    <li class="admin_profile_sub_logout">
+                                        <a href="/admin_logout">로그아웃</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- End -->
+
+                </div>
+                <!-- End -->
+
+            </div>  
+
+<!-- 모바일 전용 화면 -->
+<div class="admin_mobile_body" <% if(loginMember.adminlevel.includes("관리자") != false) { %> style="margin-bottom: 45px;" <% } %>>
+    <div class="admin_mobile_content">
+        <div class="mobile_profile">
+            <h3><%= loginMember.name %>님 환영합니다. <a href="/admin_logout">[로그아웃]</a></h2>   
+        </div>
+        <div class="admin_mobile_contentwrap">
+            <h1>SP1SOFT 메뉴</h1>
+            <a href="http://192.168.160.186:9000/admin/tool/uselist">장비 사용신청(전체)</a>
+            <a href="http://192.168.160.186:9000/bot/menu?selectMenu=tool">장비 사용신청(선택)</a>
+            <a href="http://192.168.160.186:9000/admin/book/uselist">도서 대여신청(전체)</a>
+            <a href="http://192.168.160.186:9000/bot/menu?selectMenu=book">도서 대여신청(선택)</a>
+            <%
+            if(loginMember.adminlevel.includes("관리자") != false) {
+            %>
+            <a class="a2" href="http://192.168.160.186:9000/admin/tool/mobile_use_check">장비 사용확인</a>
+            <a class="a2" href="http://192.168.160.186:9000/admin/tool/mobile_return_check">장비 반납확인</a>
+            <a class="a2" href="http://192.168.160.186:9000/admin/book/mobile_use_check">도서 대여확인</a>
+            <a class="a2" href="http://192.168.160.186:9000/admin/book/mobile_return_check">도서 반납확인</a>
+            <%    
+            }
+            %>
+            <a href="javascript:void(0);" id="menu_exit_btn">메뉴 종료하기</a>
+        </div>
+    </div>
+</div>
+
+<script>
+$(function() {
+    $(function init() {
+        var sp1site = document.getElementById('sp1site');
+        var sp1sitewrap = document.getElementById('sp1sitewrap');
+        var admin_profile_link = document.getElementById('admin_profile_link');
+        var admin_profile_Info = document.getElementById('admin_profile_Info');
+        var portfolioBtn = document.getElementById('portfolioBtn');
+        var portfolioColumn = document.getElementById('portfolioColumn');
+        var botBtn = document.getElementById('botBtn');
+        var botColumn = document.getElementById('botColumn');
+
+        $('#menu_exit_btn').on('click', function() {
+            window.close();
+            oneapp.close();
+        });
+
+        // 마우스 커서에 따라 하위 메뉴 공개/비공개
+        sp1site.addEventListener('mouseover', e => {
+            sp1sitewrap.className += ' hover';
+            admin_profile_Info.className = 'admin_profile';
+            portfolioColumn.className = 'adminmenu_submenu';
+            botColumn.className = 'adminmenu_submenu';
+        });
+        sp1sitewrap.addEventListener('mouseout', e => {
+            sp1sitewrap.className = 'adminmain_sp1sitewrap';
+            admin_profile_Info.className = 'admin_profile';
+            portfolioColumn.className = 'adminmenu_submenu';
+            botColumn.className = 'adminmenu_submenu';
+        });
+        admin_profile_link.addEventListener('mouseover', e => {
+            admin_profile_Info.className += ' hover';
+            sp1sitewrap.className = 'adminmain_sp1sitewrap';
+            portfolioColumn.className = 'adminmenu_submenu';
+            botColumn.className = 'adminmenu_submenu';
+        });
+        admin_profile_Info.addEventListener('mouseout', e => {
+            sp1sitewrap.className = 'adminmain_sp1sitewrap';
+            admin_profile_Info.className = 'admin_profile';
+            portfolioColumn.className = 'adminmenu_submenu';
+            botColumn.className = 'adminmenu_submenu';
+        });
+        portfolioBtn.addEventListener('mouseover', e => {
+            portfolioColumn.className += ' hover';
+            sp1sitewrap.className = 'adminmain_sp1sitewrap';
+            admin_profile_Info.className = 'admin_profile';
+            botColumn.className = 'adminmenu_submenu';
+        });
+        portfolioColumn.addEventListener('mouseout', e => {
+            sp1sitewrap.className = 'adminmain_sp1sitewrap';
+            admin_profile_Info.className = 'admin_profile';
+            portfolioColumn.className = 'adminmenu_submenu';
+            botColumn.className = 'adminmenu_submenu';
+        });
+        botBtn.addEventListener('mouseover', e => {
+            botColumn.className += ' hover';
+            sp1sitewrap.className = 'adminmain_sp1sitewrap';
+            admin_profile_Info.className = 'admin_profile';
+            portfolioColumn.className = 'adminmenu_submenu';
+        });
+        botColumn.addEventListener('mouseout', e => {
+            sp1sitewrap.className = 'adminmain_sp1sitewrap';
+            admin_profile_Info.className = 'admin_profile';
+            portfolioColumn.className = 'adminmenu_submenu';
+            botColumn.className = 'adminmenu_submenu';
+        });
+    });
+});                  
+</script>
+</html>

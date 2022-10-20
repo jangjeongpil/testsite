@@ -1,0 +1,176 @@
+<%- include('../common/adminheader.ejs') %>
+<title>메인 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap" style="max-width: 1200px;">
+            <h1>메인 페이지</h1>
+            <form style="float: left; margin: 0px 15px 15px 0px;">
+                <div class="btn_table" style="width: 538px;">
+                    <div class="btn_table_title">
+                        <span>회사연혁</span>
+                    </div>
+                    <div class="btn_table_btn">
+                        <a class="page-title-action" href="/admin/history">더보기</a>
+                    </div>               
+                </div>
+                <table class="admin_board" style="width: 550px;">
+                    <thead>
+                        <tr>
+                            <th class="adminboard_head" style="width: 30%;">
+                                <span>날짜</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 70%; border-right: none;">
+                                <span>프로젝트명</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="adminboard_body">
+                        <%
+                        for(var i = historycontents.length-1; i >= historycontents.length-5; i--) {
+                            var data = historycontents[i];
+                        %>
+                        <tr>
+                            <td>
+                                <a href="/admin/history/modify?serial=<%= data.serial %>">
+                                    <span><%= data.year %>.<% if(data.month < 10) { %>0<% } %><%= data.month %></span>
+                                </a>                            
+                            </td>
+                            <td>
+                                <span><%= data.customer%>&nbsp;<%= data.project %></span>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+               </table>
+            </form>
+
+            <form style="float: left; margin: 0px 0px 15px 0px;">
+                <div class="btn_table" style="width: 538px;">
+                    <div class="btn_table_title">
+                        <span>구축실적</span>
+                    </div>
+                    <div class="btn_table_btn">
+                        <a class="page-title-action" href="/admin/portfolio">더보기</a>
+                    </div>               
+                </div>
+                <table class="admin_board" style="width: 550px;">
+                    <thead>
+                        <tr>
+                            <th class="adminboard_head" style="width: 15%;">
+                                <span>시작월</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 15%;">
+                                <span>종료월</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 70%; border-right: none;">
+                                <span>프로젝트명</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="adminboard_body">
+                        <%
+                        for(var i = portfolio.length-1; i >= portfolio.length-5; i--) {
+                            var data = portfolio[i];
+                        %>
+                        <tr>
+                            <td>
+                                <a href="/admin/portfolio/modify?serial=<%= data.serial %>">
+                                    <span><%= data.startterm %></span>
+                                </a>                            
+                            </td>
+                            <td>
+                                <span><%= data.endterm %></span> 
+                            </td>
+                            <td>
+                                <span><%= data.customer %>&nbsp;<%= data.project %></span>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+               </table>
+            </form>
+
+            <form style="float:left; margin: 0px 15px 15px 0px;">
+                <div class="btn_table" style="width: 538px;">
+                    <div class="btn_table_title">
+                        <span>고객사</span>
+                    </div>
+                    <div class="btn_table_btn">
+                        <a class="page-title-action" href="/admin/partner">더보기</a>
+                    </div>               
+                </div>
+                <table class="admin_board" style="width: 550px;">
+                    <thead>
+                        <tr>
+                            <th class="adminboard_head" style="width: 30%;">
+                                <span>고객사명</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 70%; border-right: none;">
+                                <span>링크</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="adminboard_body">
+                        <%
+                        for(var i = customerList.length-1; i >= customerList.length-5; i--) {
+                            var data = customerList[i];
+                        %>
+                        <tr>
+                            <td>
+                                <a href="/admin/partner/modify?serial=<%= data.serial %>">
+                                    <span><%= data.companyName %></span>
+                                </a>                            
+                            </td>
+                            <td>
+                                <span><%= data.link %></span>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+               </table>
+            </form>
+            
+            <form style="float: left;">
+                <div class="btn_table" style="width: 538px;">
+                    <div class="btn_table_title">
+                        <span>협력사</span>
+                    </div>
+                    <div class="btn_table_btn">
+                        <a class="page-title-action" href="/admin/partner">더보기</a>
+                    </div>               
+                </div>
+                <table class="admin_board" style="width: 550px;">
+                    <thead>
+                        <tr>
+                            <th class="adminboard_head" style="width: 30%;">
+                                <span>고객사명</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 70%; border-right: none;">
+                                <span>링크</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="adminboard_body">
+                        <%
+                        for(var i = partnerList.length-1; i >= partnerList.length-5; i--) {
+                            var data = partnerList[i];
+                        %>
+                        <tr>
+                            <td>
+                                <a href="/admin/partner/modify?serial=<%= data.serial %>">
+                                    <span><%= data.companyName %></span>
+                                </a>                            
+                            </td>
+                            <td>
+                                <span><%= data.link %></span>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+               </table>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include('../common/adminfooter.ejs') %>

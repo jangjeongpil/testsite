@@ -1,0 +1,935 @@
+<%- include('../../common/adminheader.ejs') %>
+<script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+<title>관리장비 수정 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>관리장비 수정</h1>          
+            <form method="POST" enctype="multipart/form-data", action="/tool_update" onsubmit="return contentsCheck();">
+                <%
+                var data = toolOne;
+                %>
+                <div class="write_table">
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>유형</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span id="productType"><%= data.productType %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>관리번호</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.managementNumber %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>관리번호 숨김</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="managementNumber" value="<%= data.managementNumber %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn1_1">
+                        <div class="write_table_div1">
+                            <span>제조사</span>
+                        </div>
+                        <div class="write_table_div2_option">
+                            <select name="maker" title="maker">
+                                <% 
+                                for(var i = 0; i < codeList.length; i++) {
+                                    if(codeList[i].codeName == "제조사") {
+                                        for(var j = 0; j < codeList[i].codeOption.length; j++) {                           
+                                %>
+                                            <option value="<%= codeList[i].codeOption[j] %>"
+                                <%
+                                            if(data.maker == codeList[i].codeOption[j]) {
+                                %>
+                                            selected 
+                                <%
+                                            }
+                                %>
+                                ><%= codeList[i].codeOption[j] %></option>                          
+                                <%  
+                                        }
+                                    }
+                                }
+                                %> 
+                            </select>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn1_2">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn2_1" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>통신사</span>
+                        </div>
+                        <div class="write_table_div2_option">
+                            <select name="telecom" title="telecom"> 
+                                <% 
+                                for(var i = 0; i < codeList.length; i++) {
+                                    if(codeList[i].codeName == "통신사") {
+                                        for(var j = 0; j < codeList[i].codeOption.length; j++) {                           
+                                %>
+                                            <option value="<%= codeList[i].codeOption[j] %>"
+                                <%
+                                            if(data.telecom == codeList[i].codeOption[j]) {
+                                %>
+                                            selected 
+                                <%
+                                            }
+                                %>
+                                ><%= codeList[i].codeOption[j] %></option>                          
+                                <%  
+                                        }
+                                    }
+                                }
+                                %> 
+                            </select>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn2_2" style="display: none;">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>제품명</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="productName" name="productName" value="<%= data.productName %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="productNameMessage">※ 제품명을 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn3_1">
+                        <div class="write_table_div1">
+                            <span>화면크기</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="inch" name="inch" value="<%= data.inch %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn3_2">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="inchMessage">※ 화면크기를 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn4_1">
+                        <div class="write_table_div1">
+                            <span>CPU</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="cpu" name="cpu" value="<%= data.cpu %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn4_2">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="cpuMessage">※ CPU를 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn5_1">
+                        <div class="write_table_div1">
+                            <span>메모리</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="memory" name="memory" value="<%= data.memory %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn5_2">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="memoryMessage">※ 메모리를 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn6_1">
+                        <div class="write_table_div1">
+                            <span>윈도우 유무</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="windowYN" name="windowYN" value="<%= data.windowYN %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn6_2">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="windowYNMessage">※ 윈도우 유무를 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn7_1" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>연결타입</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="connectionType" name="connectionType" value="<%= data.connectionType %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn7_2" style="display: none;">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn8_1" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>LAN 지원유무</span>
+                        </div>
+                        <div class="write_table_div2_option">
+                            <select name="lanYN" title="lanYN">
+                                <option value="Y">지원</option>
+                                <option value="N">미지원</option>
+                            </select>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn8_2" style="display: none;">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>시리얼 번호</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="productSerial" name="productSerial" value="<%= data.productSerial %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn9_1" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>UDID(iPhone Only)</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="udid" name="udid" value="<%= data.udid %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn9_2" style="display: none;">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn10_1" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>OS Version</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="osVersion" name="osVersion" value="<%= data.osVersion %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn10_2" style="display: none;">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn11_1" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>개통번호</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="phoneNumber" name="phoneNumber" value="<%= data.phoneNumber %>" onKeyup="this.value=this.value.replace(/[^[0-9]/g, '');" maxlength="11">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn11_2" style="display: none;">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn12_1" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>요금제 및 데이터</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="callingPlan" name="callingPlan" value="<%= data.callingPlan %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn12_2" style="display: none;">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>구매일</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="purchaseDate" name="purchaseDate" value="<%= data.purchaseDate %>" onKeyup="this.value=this.value.replace(/[^[0-9]/g, '');" maxlength="8">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>사용자</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="user" name="user" value="<%= data.user %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>사용처</span>
+                        </div>
+                        <div class="write_table_div2_option">
+                            <select name="usePlace" title="usePlace">
+                                <% 
+                                for(var i = 0; i < codeList.length; i++) {
+                                    if(codeList[i].codeName == "사용처") {
+                                        for(var j = 0; j < codeList[i].codeOption.length; j++) {                           
+                                %>
+                                            <option value="<%= codeList[i].codeOption[j] %>"
+                                <%
+                                            if(data.usePlace == codeList[i].codeOption[j]) {
+                                %>
+                                            selected 
+                                <%
+                                            }
+                                %>
+                                ><%= codeList[i].codeOption[j] %></option>                          
+                                <%  
+                                        }
+                                    }
+                                }
+                                %> 
+                            </select>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>이미지 등록</span>
+                        </div>
+                        <div class="write_table_div2_upload">
+                            <input type="file" id="imagefile" name="imagefile"/>
+                            <div class="resizeBtnDiv">
+                                <input type="button" id="resizeBtn" class="resizeBtn" value="이미지 편집"/>
+                            </div>                
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="imageMessage">
+                            <% 
+                            if(data.imagename != "") {
+                            %>
+                                ※ 기존 사진이 등록되어 있습니다. (권장 사이즈 : 150 x 250 px)
+                            <%
+                            }else {
+                            %>
+                                ※ 사진을 등록해주세요. (권장 사이즈 : 150 x 250 px)
+                            <% 
+                            }    
+                            %>                           
+                            </span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>비고</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="reference" name="reference" value="<%= data.reference %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>수정자명</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="modifier" value="<%= loginMember.name %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>수정일</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="modifydate" name="modifydate" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_btn">
+                        <input type="submit" value="수정"/>
+                        <a href="/admin/tool/delete?managementNumber=<%= data.managementNumber %>">
+                            <span>삭제</span>
+                        </a>
+                        <a href="/admin/tool">
+                            <span>돌아가기</span>
+                        </a>
+                    </div>
+                    <div style="font-size: 12px;">작성자: <%= data.writer %> / 작성일: <%=data.date %> / 수정자: <%= data.modifier %> / 수정일: <%=data.modifydate %></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+// 필수사항 입력 체크 함수   
+function contentsCheck() {
+    if($('#managementNumber').val() == "" || $('#productName').val() == "") {
+        alert('필수항목을 입력해주세요.');
+        return false;
+    }
+}
+
+$(function() {
+    $(function init() {
+        // 수정일 오늘 날짜 자동기입
+        $('#modifydate').attr('value', todayDate());        
+        
+        // 핸드폰 번호 플래터 적용
+        $('#phoneNumber').change(function() {
+            var $this =  $('#phoneNumber').val();
+            var formatphone = phoneFormatter($this);
+            $('#phoneNumber').val(formatphone);
+        });
+        // 날짜 플래터 적용
+        $('#purchaseDate').change(function() {
+            var $this =  $('#purchaseDate').val();
+            var formatdate = dayformat($this);
+            $('#purchaseDate').val(formatdate);
+        });
+
+        // 데이터 유무에 따른 알림 메시지 공개/비공개
+        if($('#productName').val() != "") {
+            $('#productNameMessage').css('display', 'none');
+        }else {
+            $('#productNameMessage').css('display', 'block');
+        }
+        if($('#inch').val() != "") {
+            $('#inchMessage').css('display', 'none');
+        }else {
+            $('#inchMessage').css('display', 'block');
+        }        
+        if($('#cpu').val() != "") {
+            $('#cpuMessage').css('display', 'none');
+        }else {
+            $('#cpuMessage').css('display', 'block');
+        }
+        if($('#memory').val() != "") {
+            $('#memoryMessage').css('display', 'none');
+        }else {
+            $('#memoryMessage').css('display', 'block');
+        }
+        if($('#windowYN').val() != "") {
+            $('#windowYNMessage').css('display', 'none');
+        }else {
+            $('#windowYNMessage').css('display', 'block');
+        }
+
+        // 데이터 유무에 따른 알림 메시지 공개/비공개
+        $('#productName').change(function() {
+            if($('#productName').val() != "") {
+                $('#productNameMessage').css('display', 'none');
+            }else {
+                $('#productNameMessage').css('display', 'block');
+            }
+        });   
+        $('#inch').change(function() {
+            if($('#inch').val() != "") {
+                $('#inchMessage').css('display', 'none');
+            }else {
+                $('#inchMessage').css('display', 'block');
+            }
+        });   
+        $('#cpu').change(function() {
+            if($('#cpu').val() != "") {
+                $('#cpuMessage').css('display', 'none');
+            }else {
+                $('#cpuMessage').css('display', 'block');
+            }
+        });  
+        $('#memory').change(function() {
+            if($('#memory').val() != "") {
+                $('#memoryMessage').css('display', 'none');
+            }else {
+                $('#memoryMessage').css('display', 'block');
+            }
+        }); 
+        $('#windowYN').change(function() {
+            if($('#windowYN').val() != "") {
+                $('#windowYNMessage').css('display', 'none');
+            }else {
+                $('#windowYNMessage').css('display', 'block');
+            }
+        });   
+        $('#imagefile').change(function() {
+            if($('#imagefile')[0].files.length != 0) {
+                $('#imageMessage').css('display', 'none');
+            }else {
+                $('#imageMessage').css('display', 'block');
+            }
+        });
+
+        var selectColumn1_1 = $('#selectColumn1_1');
+        var selectColumn1_2 = $('#selectColumn1_2');
+        var selectColumn2_1 = $('#selectColumn2_1');
+        var selectColumn2_2 = $('#selectColumn2_2');
+        var selectColumn3_1 = $('#selectColumn3_1');
+        var selectColumn3_2 = $('#selectColumn3_2');
+        var selectColumn4_1 = $('#selectColumn4_1');
+        var selectColumn4_2 = $('#selectColumn4_2');
+        var selectColumn5_1 = $('#selectColumn5_1');
+        var selectColumn5_2 = $('#selectColumn5_2');
+        var selectColumn6_1 = $('#selectColumn6_1');
+        var selectColumn6_2 = $('#selectColumn6_2');
+        var selectColumn7_1 = $('#selectColumn7_1');
+        var selectColumn7_2 = $('#selectColumn7_2');
+        var selectColumn8_1 = $('#selectColumn8_1');
+        var selectColumn8_2 = $('#selectColumn8_2');
+        var selectColumn9_1 = $('#selectColumn9_1');
+        var selectColumn9_2 = $('#selectColumn9_2');
+        var selectColumn10_1 = $('#selectColumn10_1');
+        var selectColumn10_2 = $('#selectColumn10_2');
+        var selectColumn11_1 = $('#selectColumn11_1');
+        var selectColumn11_2 = $('#selectColumn11_2');
+        var selectColumn12_1 = $('#selectColumn12_1');
+        var selectColumn12_2 = $('#selectColumn12_2');
+
+        // 장비 유형에 따른 입력 컬럼 공개/비공개
+        if($('#productType').text() == "노트북") {
+            selectColumn1_1.show();
+            selectColumn1_2.show();
+            selectColumn2_1.hide();
+            selectColumn2_2.hide();
+            selectColumn3_1.show();
+            selectColumn3_2.show();          
+            selectColumn4_1.show();
+            selectColumn4_2.show();
+            selectColumn5_1.show();
+            selectColumn5_2.show();
+            selectColumn6_1.show();
+            selectColumn6_2.show();
+            selectColumn7_1.hide();
+            selectColumn7_2.hide();
+            selectColumn8_1.hide();
+            selectColumn8_2.hide();
+            selectColumn9_1.hide();
+            selectColumn9_2.hide();
+            selectColumn10_1.hide();
+            electColumn10_2.hide();
+            selectColumn11_1.hide();
+            selectColumn11_2.hide();
+            selectColumn12_1.hide();
+            selectColumn12_2.hide();
+        }else if($('#productType').text() == "모니터") {
+            selectColumn1_1.show();
+            selectColumn1_2.show();
+            selectColumn2_1.hide();
+            selectColumn2_2.hide();
+            selectColumn3_1.show();
+            selectColumn3_2.show();          
+            selectColumn4_1.hide();
+            selectColumn4_2.hide();
+            selectColumn5_1.hide();
+            selectColumn5_2.hide();
+            selectColumn6_1.hide();
+            selectColumn6_2.hide();
+            selectColumn7_1.hide();
+            selectColumn7_2.hide();
+            selectColumn8_1.hide();
+            selectColumn8_2.hide();
+            selectColumn9_1.hide();
+            selectColumn9_2.hide();
+            selectColumn10_1.hide();
+            selectColumn10_2.hide();
+            selectColumn11_1.hide();
+            selectColumn11_2.hide();
+            selectColumn12_1.hide();
+            selectColumn12_2.hide();
+        }else if($('#productType').text() == "PC 본체") {
+            selectColumn1_1.show();
+            selectColumn1_2.show();
+            selectColumn2_1.hide();
+            selectColumn2_2.hide();
+            selectColumn3_1.hide();
+            selectColumn3_2.hide();          
+            selectColumn4_1.show();
+            selectColumn4_2.show();
+            selectColumn5_1.show();
+            selectColumn5_2.show();
+            selectColumn6_1.show();
+            selectColumn6_2.show();
+            selectColumn7_1.hide();
+            selectColumn7_2.hide();
+            selectColumn8_1.hide();
+            selectColumn8_2.hide();
+            selectColumn9_1.hide();
+            selectColumn9_2.hide();
+            selectColumn10_1.hide();
+            selectColumn10_2.hide();
+            selectColumn11_1.hide();
+            selectColumn11_2.hide();
+            selectColumn12_1.hide();
+            selectColumn12_2.hide();
+        }else if($('#productType').text() == "RJ45 이더넷 어댑터") {
+            selectColumn1_1.show();
+            selectColumn1_2.show();
+            selectColumn2_1.hide();
+            selectColumn2_2.hide();
+            selectColumn3_1.hide();
+            selectColumn3_2.hide();          
+            selectColumn4_1.hide();
+            selectColumn4_2.hide();
+            selectColumn5_1.hide();
+            selectColumn5_2.hide();
+            selectColumn6_1.hide();
+            selectColumn6_2.hide();
+            selectColumn7_1.show();
+            selectColumn7_2.show();
+            selectColumn8_1.show();
+            selectColumn8_2.show();
+            selectColumn9_1.hide();
+            selectColumn9_2.hide();
+            selectColumn10_1.hide();
+            selectColumn10_2.hide();
+            selectColumn11_1.hide();
+            selectColumn11_2.hide();
+            selectColumn12_1.hide();
+            selectColumn12_2.hide();
+        }else if($('#productType').text() == "테스트 단말기") {
+            selectColumn1_1.show();
+            selectColumn1_2.show();
+            selectColumn2_1.hide();
+            selectColumn2_2.hide();
+            selectColumn3_1.hide();
+            selectColumn3_2.hide();          
+            selectColumn4_1.hide();
+            selectColumn4_2.hide();
+            selectColumn5_1.hide();
+            selectColumn5_2.hide();
+            selectColumn6_1.hide();
+            selectColumn6_2.hide();
+            selectColumn7_1.hide();
+            selectColumn7_2.hide();
+            selectColumn8_1.hide();
+            selectColumn8_2.hide();
+            selectColumn9_1.show();
+            selectColumn9_2.show();
+            selectColumn10_1.show();
+            selectColumn10_2.show();
+            selectColumn11_1.hide();
+            selectColumn11_2.hide();
+            selectColumn12_1.hide();
+            selectColumn12_2.hide();
+        }else if($('#productType').text() == "USB HUB") {
+            selectColumn1_1.show();
+            selectColumn1_2.show();
+            selectColumn2_1.hide();
+            selectColumn2_2.hide();
+            selectColumn3_1.hide();
+            selectColumn3_2.hide();          
+            selectColumn4_1.hide();
+            selectColumn4_2.hide();
+            selectColumn5_1.hide();
+            selectColumn5_2.hide();
+            selectColumn6_1.hide();
+            selectColumn6_2.hide();
+            selectColumn7_1.show();
+            selectColumn7_2.show();
+            selectColumn8_1.show();
+            selectColumn8_2.show();
+            selectColumn9_1.hide();
+            selectColumn9_2.hide();
+            selectColumn10_1.hide();
+            selectColumn10_2.hide();
+            selectColumn11_1.hide();
+            selectColumn11_2.hide();
+            selectColumn12_1.hide();
+            selectColumn12_2.hide();
+        }else if($('#productType').text() == "USIM") {
+            selectColumn1_1.hide();
+            selectColumn1_2.hide();
+            selectColumn2_1.show();
+            selectColumn2_2.show();
+            selectColumn3_1.hide();
+            selectColumn3_2.hide();          
+            selectColumn4_1.hide();
+            selectColumn4_2.hide();
+            selectColumn5_1.hide();
+            selectColumn5_2.hide();
+            selectColumn6_1.hide();
+            selectColumn6_2.hide();
+            selectColumn7_1.hide();
+            selectColumn7_2.hide();
+            selectColumn8_1.hide();
+            selectColumn8_2.hide();
+            selectColumn9_1.hide();
+            selectColumn9_2.hide();
+            selectColumn10_1.hide();
+            selectColumn10_2.hide();
+            selectColumn11_1.show();
+            selectColumn11_2.show();
+            selectColumn12_1.show();
+            selectColumn12_2.show();
+        }else if($('#productType').text() == "EGG") {
+            selectColumn1_1.hide();
+            selectColumn1_2.hide();
+            selectColumn2_1.show();
+            selectColumn2_2.show();
+            selectColumn3_1.hide();
+            selectColumn3_2.hide();          
+            selectColumn4_1.hide();
+            selectColumn4_2.hide();
+            selectColumn5_1.hide();
+            selectColumn5_2.hide();
+            selectColumn6_1.hide();
+            selectColumn6_2.hide();
+            selectColumn7_1.hide();
+            selectColumn7_2.hide();
+            selectColumn8_1.hide();
+            selectColumn8_2.hide();
+            selectColumn9_1.hide();
+            selectColumn9_2.hide();
+            selectColumn10_1.hide();
+            selectColumn10_2.hide();
+            selectColumn11_1.hide();
+            selectColumn11_2.hide();
+            selectColumn12_1.show();
+            selectColumn12_2.show();
+        };
+
+        // 이미지 편집기 실행
+        $('#resizeBtn').on('click', function() {
+            window.open("/admin/imageeditor", "이미지 편집화면", "width=1070, height=530, top=0, left=0 overflow=hidden");
+        });
+    });
+});        
+</script>
+<%- include('../../common/adminfooter.ejs') %>

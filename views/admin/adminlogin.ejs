@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/ico.jpg" type="image/ico" />
+    <link href="/css/dashicons.min.css" id="dashicons-css" rel="stylesheet" type="text/css" media="all">
+    <link href="/css/admin.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+    <title>관리자 로그인 - 테스트용 사이트</title>
+</head>
+<body>
+</body>
+<script>
+$(function() {
+    $(function init() {  
+        function getParameterByName(name) { // 주소 파라미터를 가져오는 함수
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+            return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+
+        var params = { // AccessToken을 발급받기 위한 parameter
+            code: getParameterByName('code'),
+            grant_type: 'authorization_code',
+            client_id: 'oatXMRh2zVrfjKdqosrr',
+            client_secret: 'R8nJkjTOQ8',
+        };
+
+        var formBody = []; // URL Encoding 형태에 맞게 params를 연결
+        for (var property in params) {
+            var encodedKey = encodeURIComponent(property);
+            var encodedValue = encodeURIComponent(params[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+        formBody = formBody.join("&");
+
+        var first = new Promise(function(resolve, reject) {
+            resolve();
+            reject();
+        });
+
+        first.then(() => {
+            $.ajax({
+                type: "POST",
+                url: '/admin/tokenProcess',
+                data: formBody
+            })
+        }).then(() => {
+            setTimeout(function() {   
+                $.ajax({
+                    type: "POST",
+                    url: '/admin/memberProcess'
+                })
+            }, 200);
+        }).then(() => {
+            setTimeout(function() {   
+                $.ajax({
+                    type: "POST",
+                    url: '/admin/loginProcess'
+                })
+            }, 300);
+        }).then(() => {
+            setTimeout(function() {   
+                location.href = "/admin/main";
+            }, 1000);
+        }).catch(() => {
+            console.log('bot call error!');
+        });    
+    });
+}); 
+</script>
+</html>

@@ -1,0 +1,369 @@
+<%- include('../../common/adminheader.ejs') %>
+<script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="/node_modules/xlsx/dist/xlsx.full.min.js"></script>
+<title>도서관리 페이지 - 테스트용 사이트</title>
+
+<% 
+var currentPage = 1;
+if(pageNum != "") { 
+    currentPage = pageNum;
+}
+var totalRecord = bookList.length; // 총 게시물 수
+var pageSize = 20; // 한 페이지당 보여질 레코드 수
+var totalPage = Math.ceil(totalRecord / pageSize); // 총 페이지 수 
+var blockSize = 10; // 블럭당 보여질 페이지 수 
+var firstPage = currentPage - (currentPage - 1) % blockSize; // 블럭당 시작 페이지 
+var lastPage = firstPage + (blockSize - 1); // 블럭당 끝 페이지 
+var num = totalRecord - (currentPage - 1) * pageSize; // 페이지당 시작 번호
+%> 
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>도서관리 페이지</h1>         
+                <div class="btn_table" style="width:1288px;">
+                    <h3>도서 보유현황</h3>&nbsp;   
+                    [총 <%= bookList.length %>권]
+                </div> 
+                <div class="btn_table" style="width:1288px;">
+                    <div class="btn_table_title">
+                        <form method="POST" action="/admin/book" onsubmit="return contentsCheck();">
+                            <select name="searchSelect" title="searchSelect" style="height: 29px;">
+                                <option value="bookType">유형</option>
+                                <option value="managementNumber">관리번호</option>
+                                <option value="bookName">도서명</option>
+                                <option value="useYN">사용여부</option>
+                                <option value="user">사용자</option>
+                                <option value="useStartDate">대여시작일</option>
+                                <option value="useEndDate">대여종료일</option>
+                            </select>
+                            <input type="text" name="searchColumn" id="searchColumn" class="searchColumn" value="" style="width: 150px; height: 25px; padding: 0; font-size:12px;">
+                            <input type="submit" value="검색"/>
+                        </form>
+                    </div>   
+                    <div class="btn_table_btn"> 
+                        <a class="page-title-action" href="/admin/book/use_apply">대여신청</a>
+                        <a class="page-title-action" href="/admin/book/use_check">대여확인</a>
+                        <a class="page-title-action" href="/admin/book/return_apply">반납신청</a>
+                        <a class="page-title-action" href="/admin/book/return_check">반납확인</a>
+                        <a class="page-title-action" href="/admin/book/add">도서추가</a>
+                        <a class="page-title-action" id="excel_downBtn" href="javascript:void(0);">엑셀다운</a>
+                        <a class="page-title-action" id="excel_uploadBtn" href="javascript:void(0);">엑셀업로드</a>
+                        <input type="file" id="excel_upload" style="display: none;">
+                    </div>                
+                </div>
+                <table class="admin_board" style="width: 1300px; font-size: 13px;">
+                    <thead>
+                        <tr>
+                            <th class="adminboard_head" style="width: 11%; font-size: 14px;">
+                                <span>이미지</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 9%; font-size: 14px;">
+                                <span>유형</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 7%; font-size: 14px;">
+                                <span>관리번호</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 18%; font-size: 14px;">
+                                <span>도서명</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 6%; font-size: 14px;">
+                                <span>개정년도</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 6%; font-size: 14px;">
+                                <span>사용여부</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 6%; font-size: 14px;">
+                                <span>사용자</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 10%; font-size: 14px;">
+                                <span>대여시작일</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 10%; font-size: 14px;">
+                                <span>도서반납일</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 5%; font-size: 14px;">
+                                <span>링크</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 7%; font-size: 14px;">
+                                <span>대여신청</span>
+                            </th>       
+                            <th class="adminboard_head" style="width: 5%; font-size: 14px; border-right: none;">
+                                <span>이력</span>
+                            </th>                                   
+                        </tr>
+                    </thead>
+                    <tbody class="adminboard_body" style="font-size: 12px;">
+                        <!-- 페이징 처리. 현재 페이지(currentPage)에 따라 리스트 배치 -->
+                        <%
+                        var data = "";
+                        for(var i = 0; i < pageSize; i++) {
+                            if(num < 1) { 
+                                break;
+                            }
+                            if(currentPage == 1) {
+                                data = bookList[i];
+                            }else {
+                                data = bookList[i + ((currentPage - 1) * 20)];
+                            }
+                        %>
+                        <tr>
+                            <td style="text-align: center;">
+                                <span><% if(data.imagename != "") { %><img src="/uploads/<%= data.imagename %>" style="width:60%; max-height:170px; margin-top: 10px"><% } %></span>   
+                            </td>
+                            <td>
+                                <span><%= data.bookType %></span>    
+                            </td>
+                            <td>
+                                <span><a href="/admin/book/detail?managementNumber=<%= data.managementNumber %>"><%= data.managementNumber %></a></span>
+                            </td>
+                            <td>
+                                <span><%= data.bookName %></span>
+                            </td>
+                            <td>
+                                <span><%= data.revisionYear %></span>
+                            </td>
+                            <td>
+                                <span><%= data.useYN %></span>
+                            </td>
+                            <td>
+                                <span><%= data.user %></span>
+                            </td>  
+                            <td>
+                                <span><%= data.useStartDate %></span>
+                            </td>  
+                            <td>
+                                <span><%= data.useEndDate %></span>
+                            </td>    
+                            <td>
+                                <span><a href="<%= data.link %>" target="_blank">[링크]</a></span>
+                            </td>  
+                            <td>
+                                <a href="/admin/book/use_apply?managementNumber=<%= data.managementNumber %>">
+                                    <span>[대여신청]</span>
+                                </a>                               
+                            </td>     
+                            <td>
+                                <a class="historyBtn" href="javascript:void(0);">
+                                    <span>[이력]</span>
+                                    <div class="modal modal-overlay">
+                                        <div class="modal-window">
+                                            <div class="title">
+                                                <h2><%= data.managementNumber %> 대여이력</h2>
+                                                <img class="close-area" src="/images/btn_exit_white.png">
+                                                <img class="excel-down" src="/images/btn_excel_white.png">
+                                                <%
+                                                if(data.bookHistory != "") {                                                        
+                                                %>
+                                                <table class="excel_table2" style="display: none;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>관리번호</th>
+                                                            <%
+                                                            for(var j = 0; j < data.bookHistory.length; j++) {
+                                                            %>
+                                                            <th>이력<%= j + 1 %></th>
+                                                            <%
+                                                            }
+                                                            %>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><%= data.managementNumber %></td>
+                                                            <%
+                                                            for(var j = 0; j < data.bookHistory.length; j++) {
+                                                            %>
+                                                            <td><%= data.bookHistory[j] %></td>
+                                                            <%
+                                                            }
+                                                            %>
+                                                        </tr> 
+                                                    </tbody>
+                                                </table>   
+                                                <%
+                                                }
+                                                %>
+                                            </div>
+                                            <div class="content">
+                                                <span style="white-space: pre-line;">
+                                                    <%
+                                                    var split = '';
+                                                    if(data.bookHistory == "") {                                                        
+                                                    %>
+                                                    이력이 존재하지 않습니다.
+                                                    <%
+                                                    }else {                                                                                                     
+                                                        for(var j = 0; j < data.bookHistory.length; j++) {
+                                                            if(j < data.bookHistory.length - 1) {
+                                                                split += data.bookHistory[j] + '\n';
+                                                            }else {
+                                                                split += data.bookHistory[j];                                                             
+                                                            }
+                                                        }                                                      
+                                                    }
+                                                    %> 
+                                                    <%= split %>                                        
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>                                 
+                            </td>                
+                        </tr>
+                        <% num = num - 1 %>                         
+                        <%
+                        } 
+                        %>
+                        <!-- 페이징 블록 처리 -->
+                        <tr>                           
+                            <td colspan="12" style="text-align:center">
+                                <% if(firstPage - 1 > 1) { %>
+                                    <a href="/admin/book?currentPage=<%= firstPage - 1 %>">◁</a>
+                                <% }else{ %>
+                                    <a href="javascript:alert('이전 블럭이 없습니다.')">◁</a>
+                                <% }
+                                    for(var i = firstPage; i <= lastPage; i++) {
+                                        if(i > totalPage) { 
+                                            break; 
+                                        }
+                                %>
+                                        <a <% if(i == currentPage){ %> <% } %> href="/admin/book?currentPage=<%= i %>">[<%= i %>]</a>
+                                <% } %>
+                                <% if(lastPage + 1 < totalPage) { %>
+                                    <a href="/admin/book?currentPage=<%= lastPage + 1 %>">▷</a>
+                                <% }else { %>
+                                    <a href="javascript:alert('마지막 페이지입니다.')">▷</a>
+                                <% } %>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <table id="excel_table" style="display: none;">
+        <thead>
+            <tr>
+                <th>유형</th>
+                <th>관리번호</th>
+                <th>도서명</th>
+                <th>개정년도</th>
+                <th>사용여부</th>
+                <th>사용자</th>
+                <th>대여시작일</th>
+                <th>도서반납일</th>
+                <th>링크</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+            for(var i = 0; i < bookList.length; i++) {
+            %>   
+            <tr>
+                <td><%= bookList[i].bookType %></td>
+                <td><%= bookList[i].managementNumber %></td>
+                <td><%= bookList[i].bookName %></td>
+                <td><%= bookList[i].revisionYear %></td>
+                <td><%= bookList[i].useYN %></td>
+                <td><%= bookList[i].user %></td>
+                <td><%= bookList[i].useStartDate %></td>
+                <td><%= bookList[i].useEndDate %></td>
+                <td><%= bookList[i].link %></td>
+            </tr> 
+            <%
+            }
+            %>
+        </tbody>
+    </table>
+<script>
+// 필수사항 입력 체크 함수
+function contentsCheck() {
+    var searchColumn = $('#searchColumn').val()
+    if(searchColumn == "") {
+        alert('검색내용을 입력해주세요.');
+        return false;
+    }
+} 
+
+$(function() {
+    $(function init() {  
+        var historyBtn = $('.historyBtn');
+        var closeBtn = $('.close-area');
+
+        historyBtn.on('click', function() {
+            var $this = $(this);
+            var modal = $this.children('.modal');
+            modal.show();
+        });
+
+        closeBtn.on('click', function() {
+            var $this = $(this);
+            var modal = $this.parents().parents('.modal-overlay');
+            modal.fadeOut();
+        });
+
+        function download() {
+            // 대상 테이블을 가져옴
+            var table = $('#excel_table');
+            
+            if(table) {
+                // CASE 대상 테이블이 존재하는 경우
+                
+                // 엑셀다운 (엑셀파일명, 시트명, 내부데이터 HTML)
+                _excelDown("도서리스트.xls", "도서리스트", table[0].outerHTML)
+            }
+        }
+
+        var excel_downBtn = $('#excel_downBtn');
+        excel_downBtn.on('click', function() {
+            download();
+        });
+
+        var excel_downBtn2 = $('.excel-down');
+        excel_downBtn2.on('click', function() {
+            var $this = $(this);
+            _excelDown("도서이력.xls", "도서이력", $this.next()[0].outerHTML)
+        });
+
+        $('#excel_uploadBtn').on('click', function() {
+            if($('#loginmember_adminlevel').text().includes('관리자') != false) {
+                $('#excel_upload').trigger('click');
+            }else {
+                alert('업로드할 수 있는 권한이 없습니다.');
+            };
+        });
+
+        // 엑셀 업로드 함수
+        function readExcel() {
+            if($('#excel_upload')[0].files.length != 0) {
+                let input = event.target;
+                let reader = new FileReader();
+                reader.onload = function () {
+                    let data = reader.result;
+                    let workBook = XLSX.read(data, { type: 'binary' });
+                    workBook.SheetNames.forEach(function (sheetName) {
+                        let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
+                        $.ajax({
+                            type: "POST",
+                            url: '/book_excel_upload',
+                            headers: {
+                                "Content-Type": "application/json"
+                            },                
+                            data: JSON.stringify(rows)
+                        });        
+                    })
+                };
+                reader.readAsBinaryString(input.files[0]);            
+            }
+        }
+
+        $('#excel_upload').on('change', function() {
+            if(confirm('도서 DB에 엑셀파일을 업로드하시겠습니까?\n중복된 번호가 있는 경우 등록되지 않습니다.')) {
+                readExcel();
+                $('#excel_upload').val("");
+            }          
+        });
+    });
+});
+</script>
+<%- include('../../common/adminfooter.ejs') %>

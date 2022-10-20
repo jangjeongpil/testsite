@@ -1,0 +1,219 @@
+<%- include('../../common/adminheader.ejs') %>
+<script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+<title>고객사 및 협력사 수정 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>고객사 및 협력사 추가</h1>          
+            <form id="customerOrpartner" method="POST" enctype="multipart/form-data", action="/customer_create" onsubmit="return contentsCheck();">
+                <div class="write_table">
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>고객사/협력사</span>
+                        </div>
+                        <div class="write_table_div2_option">
+                            <select id="companyOption" name="companyOption" title="companyOption" onchange="formChange(this.value)">
+                                <option value="customer">고객사</option>
+                                <option value="partner">협력사</option>
+                            </select>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>고객사명</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="companyName" name="companyName" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="companyMessage">※ 고객사명을 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>링크</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="link" name="link" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="linkMessage">※ 링크를 등록해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>이미지 등록</span>
+                        </div>
+                        <div class="write_table_div2_upload">
+                            <input type="file" id="imagefile" name="imagefile"/>
+                            <div class="resizeBtnDiv">
+                                <input type="button" id="resizeBtn" class="resizeBtn" value="이미지 편집"/>
+                            </div>  
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="imageMessage">※ 사진을 등록해주세요. (권장 사이즈 : 204 x 83 px)</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>공개/비공개</span>
+                        </div>
+                        <div class="write_table_div2_option">
+                            <select name="hiddenYN" title="hiddenYN">
+                                <option value="N">공개</option>
+                                <option value="Y">비공개</option>
+                            </select>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>작성자명</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="writer" value="<%= loginMember.name %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>작성일</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="date" id="date" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_btn">
+                        <input type="submit" value="등록"/>
+                        <a href="/admin/partner">
+                            <span>돌아가기</span>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+// 고객사 or 협력사에 따른 form action 변경. form에 따른 POST가 다름
+function formChange(company) {
+    if(company == 'customer') {
+        document.getElementById('customerOrpartner').action = "/customer_create";
+    }else if(company == 'partner') {
+        document.getElementById('customerOrpartner').action = "/partner_create";
+    }
+} 
+
+// 필수사항 입력 체크 함수
+function contentsCheck() {
+    var companyName = $('#companyName').val();
+    var link = $('#link').val();
+
+    if(companyName == "" || link == "" || $('#imagefile')[0].files.length === 0) {
+        alert('필수항목을 입력해주세요.');
+        return false;
+    }
+}
+
+$(function() {
+    $(function init() { 
+        // 작성일 오늘 날짜 자동기입
+        $('#date').attr('value', todayDate());
+
+        // 데이터 유무에 따른 알림 메시지 공개/비공개
+        $('#companyName').change(function() {
+            if($('#companyName').val() != "") {
+                $('#companyMessage').css('display', 'none');
+            }else {
+                $('#companyMessage').css('display', 'block');
+            }
+        });  
+        $('#link').change(function() {
+            if($('#link').val() != "") {
+                $('#linkMessage').css('display', 'none');
+            }else {
+                $('#linkMessage').css('display', 'block');
+            }
+        });
+        $('#imagefile').change(function() {
+            if($('#imagefile')[0].files.length != 0) {
+                $('#imageMessage').css('display', 'none');
+            }else {
+                $('#imageMessage').css('display', 'block');
+            }
+        });                
+
+        // 이미지 편집기 실행
+        $('#resizeBtn').on('click', function() {
+            window.open("/admin/imageeditor", "이미지 편집화면", "width=1070, height=530, top=0, left=0 overflow=hidden");
+        });
+    });
+});       
+</script>
+<%- include('../../common/adminfooter.ejs') %>

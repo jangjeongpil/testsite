@@ -1,0 +1,112 @@
+<%- include('../../common/adminheader.ejs') %>
+<title>사용자관리 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>사용자관리 페이지</h1>          
+            <form>
+                <div class="btn_table" style="width:1188px;">
+                    <div class="btn_table_title">
+                        <span>사용자 목록</span>
+                    </div>  
+                    <div class="btn_table_btn">
+                        <a class="page-title-action" id="deleteBtn">사용자 삭제</a>
+                    </div>              
+                </div>
+                <table class="admin_board" style="width: 1200px; font-size: 13px;">
+                    <thead>
+                        <tr>
+                            <th class="allcheck">
+                                <label class="allcheck_column" for="allcheck_column">모두 선택</label>
+                                <input class="allcheck_column_input" id="allcheck_column" type="checkbox">
+                            </th>
+                            <th class="adminboard_head" style="width: 18%; font-size: 14px;">
+                                <span>이름</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 34%; font-size: 14px;">
+                                <span>이메일</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 20%; font-size: 14px;">
+                                <span>연락처</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 16%; font-size: 14px;">
+                                <span>직급</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 12%; font-size: 14px; border-right: none;">
+                                <span>관리자 등급</span>
+                            </th>                                     
+                        </tr>
+                    </thead>
+                    <tbody class="adminboard_body" style="font-size: 12px;">
+                        <% 
+                        for(var i = 0; i < memberList.length; i++) {
+                        var data = memberList[i];
+                        %>
+                        <tr>
+                            <th>
+                                <label class="screen-reader-text" for="cb<%= i %>"></label>
+                                <input id="cb<%= i %>" class="checkbox" type="checkbox" name="deleteCheckbox" value="<%= data.email %>">    
+                            </th>
+                            <td>
+                                <span><a href="/admin/member/modify?email=<%= data.email %>"><%= data.name %></a></span>    
+                            </td>
+                            <td>
+                                <span><%= data.email %></span>    
+                            </td>
+                            <td>
+                                <span><%= data.phone %></span>
+                            </td>
+                            <td>
+                                <span><%= data.level %></span>
+                            </td>
+                            <td>
+                                <span><%= data.adminlevel %></span>
+                            </td>                    
+                        </tr>
+                        <% } %>
+                    </tbody>
+               </table>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+$(function() {
+    $(function init() {  
+        var allcheck_column = $('#allcheck_column'); // 전체 선택
+        var deleteBtn = $('#deleteBtn'); // 삭제 버튼
+
+        // 전체 선택 클릭 시 컬럼 전체 선택/해제
+        allcheck_column.on('click', function() {
+            if(allcheck_column.is(":checked")) {
+                $("input[name=deleteCheckbox]").prop("checked", true);
+            }else {
+                $("input[name=deleteCheckbox]").prop("checked", false);
+            }
+        });
+
+        // 삭제 버튼 클릭 시 삭제 처리(POST 전송) : 퇴사자인 경우에만 삭제 처리 가능. 재직중인 사람은 자동으로 재등록 처리.
+        deleteBtn.on('click', function() {
+            var dataArray = [];
+
+            $("input[name=deleteCheckbox]:checked").each(function() {
+                var $this = $(this);
+                dataArray.push({email: $this.val()});
+            });
+            dataArray = JSON.stringify(dataArray);
+
+            $.ajax({
+                type: "POST",
+                url: '/member_checkdelete',
+                headers: {
+                    "Content-Type": "application/json"
+                },                
+                data: dataArray
+            });
+            location.href = "/admin/member";
+        });
+    });
+});     
+</script>
+<%- include('../../common/adminfooter.ejs') %>

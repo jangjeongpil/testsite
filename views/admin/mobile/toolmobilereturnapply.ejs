@@ -1,0 +1,150 @@
+<div class="adminwrap modal_return_apply"> 
+    <div class="admin_body">
+        <div class="admin_content">
+            <div class="admin_contentwrap">
+                <div class="btn_group">
+                    <img id="modal_exitBtn3" src="/images/btn_exit.png">
+                </div>
+                <div style="text-align: center;">
+                    <h1>장비 반납신청</h1>
+                </div>                        
+                <div class="write_table">
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>반납유무 숨김</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="returnYN" name="returnYN" value="N">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>신청자</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span id="returnapply_user"><%= loginMember.name %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>반납일</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="returnapply_returnDate" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="returnDateMessage">※ 반납일을 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>유형</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span id="returnapply_productType"></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>관리번호</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span id="returnapply_managementNumber"></span>
+                        </div>              
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_btn">
+                        <div>
+                            <input type="submit" id="postFormBtn2" value="반납신청"/>
+                            <a id="cancelBtn2" href="javascript:void(0);">
+                                <span>돌아가기</span>
+                            </a>                                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(function() {
+    $(function init() {
+        $('#returnapply_returnDate').attr('value', todayDate());
+        $('#returnapply_returnDate').change(function() {
+            var $this =  $('#returnapply_returnDate').val();
+            var formatdate = dayformat($this);
+            $('#returnapply_returnDate').val(formatdate);
+        });
+
+        if($('#returnapply_returnDate').val() != "") {
+            $('#returnDateMessage').css('display', 'none');
+        }else {
+            $('#returnDateMessage').css('display', 'block');
+        }
+
+        $('#returnapply_returnDate').change(function() {
+            if($('#returnapply_returnDate').val() != "") {
+                $('#returnDateMessage').css('display', 'none');
+            }else {
+                $('#returnDateMessage').css('display', 'block');
+            }
+        });
+    });
+});   
+</script>
+<%- include('../../common/adminfooter.ejs') %>

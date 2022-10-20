@@ -1,0 +1,157 @@
+<%- include('../../common/adminheader.ejs') %>
+<script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+<title>구축실적 수정 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>구축실적 수정 페이지</h1>          
+            <form>
+                <div class="btn_table">
+                    <div class="btn_table_title">
+                        <span>구축실적</span>
+                    </div>
+                    <div class="btn_table_btn">
+                        <a class="page-title-action" href="/admin/portfolio/write">실적추가</a>
+                        <a class="page-title-action" id="deleteBtn">실적삭제</a>
+                    </div>               
+                </div>
+                <table class="admin_board">
+                    <thead>
+                        <tr>
+                            <th class="allcheck">
+                                <label class="allcheck_column" for="allcheck_column">모두 선택</label>
+                                <input class="allcheck_column_input" id="allcheck_column" type="checkbox">
+                            </th>
+                            <th class="adminboard_head" style="width: 10%;">
+                                <span>고객사</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 27%;">
+                                <span>프로젝트명</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 5%;">
+                                <span>숨김</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 9%;">
+                                <span>시작월</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 9%;">
+                                <span>종료월</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 10%;">
+                                <span>작성자</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 10%;">
+                                <span>작성일</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 10%;">
+                                <span>수정자</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 10%; border-right: none;">
+                                <span>수정일</span>
+                            </th>                           
+                        </tr>
+                    </thead>
+                    <tbody class="adminboard_body">
+                        <%
+						function sortJSON(data, key, type) {
+						    if (type == undefined) {
+								type = "asc";
+							}
+							return data.sort(function(a, b) {
+								var x = a[key];
+							    var y = b[key];
+								if (type == "desc") {
+									return x > y ? -1 : x < y ? 1 : 0;
+								} else if (type == "asc") {
+									return x < y ? -1 : x > y ? 1 : 0;
+								}
+							});
+						};
+                        var sortData = sortJSON(portfolio, "endterm", "asc");
+							sortData = sortJSON(portfolio, "startterm", "asc");           
+                        for(var i = portfolio.length-1; i >= 0; i--) {
+                            var data = sortData[i];
+                        %>
+                        <tr>
+                            <th>
+                                <label class="screen-reader-text" for="cb<%= i %>"></label>
+                                <input id="cb<%= i %>" class="checkbox" type="checkbox" name="deleteCheckbox" value="<%= data.serial %>">    
+                            </th>
+                            <td>
+                                <strong>
+                                    <a href="/admin/portfolio/modify?serial=<%= data.serial %>"><%= data.customer %></a>
+                                </strong>
+                            </td>
+                            <td>
+                                <span><%= data.project %></span>    
+                            </td>
+                            <td>
+                                <span><%= data.hiddenYN %></span>    
+                            </td>
+                            <td>
+                                <span><%= data.startterm %></span>
+                            </td>
+                            <td>
+                                <span><%= data.endterm %></span>
+                            </td>
+                            <td>
+                                <span><%= data.writer %></span>
+                            </td>
+                            <td>
+                                <span><%= data.date %></span>
+                            </td>
+                            <td>
+                                <span><%= data.modifier %></span>
+                            </td>
+                            <td>
+                                <span><%= data.modifydate %></span>
+                            </td>                           
+                        </tr>
+                        <% } %>
+                    </tbody>
+               </table>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+$(function() {
+    $(function init() { 
+        // 전체 선택 클릭 시 컬럼 전체 선택/해제
+        var allcheck_column = $('#allcheck_column'); // 전체 선택
+        var deleteBtn = $('#deleteBtn'); // 삭제 버튼
+
+        // 전체 선택 클릭 시 컬럼 전체 선택/해제
+        allcheck_column.on('click', function() {
+            if(allcheck_column.is(":checked")) {
+                $("input[name=deleteCheckbox]").prop("checked", true);
+            }else {
+                $("input[name=deleteCheckbox]").prop("checked", false);
+            }
+        });
+
+        // 삭제 버튼 클릭 시 삭제 처리(POST 전송)
+        deleteBtn.on('click', function() {
+            var dataArray = [];
+
+            $("input[name=deleteCheckbox]:checked").each(function() {
+                var $this = $(this);
+                dataArray.push({serial: $this.val()});
+            });
+            dataArray = JSON.stringify(dataArray);
+
+            $.ajax({
+                type: "POST",
+                url: '/portfolio_checkdelete',
+                headers: {
+                    "Content-Type": "application/json"
+                },                
+                data: dataArray
+            });
+            location.href = "/admin/portfolio"; 
+        });
+    });
+});
+</script>
+<%- include('../../common/adminfooter.ejs') %>

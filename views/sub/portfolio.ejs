@@ -1,0 +1,242 @@
+<%- include('../common/header.ejs') %>
+<!-- 관리자 페이지에서 항목 추가하면 자동으로 반영되는 페이지로 별도의 수정이 필요없는 페이지 -->
+
+<title>구축실적 - 테스트용 사이트</title>
+<div class="sp1TopContents">
+	<div class="sp1Top">
+		<div class="sp1Top_sub">
+			<div class="sp1Top_sub2">
+				<div class="sp1Top_sub3">
+					<div class="sp1Top_sub4">
+						<div class="sp1Top_sub5">
+							<div class="sp1Top_sub6">
+								<div class="sp1Top_sub7">
+									<div class="sp1Top_sub8">
+										<div class="sp1Top_sub9">
+											<div class="sp1Top_sub10_sub">
+												<div class="sp1Top_sub11">
+													<div class="sp1Top_sub12">
+														<div class="sp1Top_sub13">
+															<div class="sp1Top_sub14">
+																<div class="sp1Top_sub15">
+																	<div class="sp1Top_sub15">
+																		<div class="sp1Top_sub16">
+																			<div class="sp1Top_sub17">
+																				<h1>구축실적</h1>
+																			</div>												
+																		</div>
+																		<div class="sp1Top_sub18">
+																			<div class="sp1Top_sub19">
+																				<div class="sp1Top_sub20">
+																					<div class="sp1Top_sub21">
+																						<div class="sp1Top_sub22">
+																							<div class="sp1Top_sub23">
+																								<div class="sp1Top_sub24">
+																									<a href="/" class="sub24_Link">테스트용 사이트</a>																				
+																								</div>	
+																								<div class="sp1Top_sub24">
+																									<div class="sp1Top_sub25">
+																										<span><i>＞</i></span>																										
+																									</div>																				
+																								</div>
+																								<div class="sp1Top_sub24">
+																									<a href="/sub/portfolio" class="sub24_Link">포트폴리오</a>																				
+																								</div>
+																								<div class="sp1Top_sub24">
+																									<div class="sp1Top_sub25">
+																										<span><i>＞</i></span>																										
+																									</div>																				
+																								</div>
+																								<div class="sp1Top_sub24">
+																									<a href="/sub/portfolio" class="sub24_Link">구축실적</a>																				
+																								</div>																			
+																							</div>																					
+																						</div>	
+																					</div>																					
+																				</div>																					
+																			</div>												
+																		</div>																															
+																	</div>													
+																</div>												
+															</div>												
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="blankContents">
+	<div class="blankContents_sub">
+		<div class="blankContents_sub2">
+			<div class="blankContents_sub3">
+				<div class="blankContents_sub4">
+					<div class="blankContents_sub5">
+						<div class="blankContents_sub6">
+							<div class="blankContents_sub7">
+								<div class="blankContents_sub8">
+									<div class="blankContents_sub9">
+									</div>	
+								</div>	
+							</div>	
+						</div>	
+					</div>	
+				</div>	
+			</div>	
+		</div>	
+	</div>	
+</div>
+
+<div class="sp1Portfolio">
+	<div class="sp1Portfolio_sub">
+		<div class="sp1Portfolio_sub2">
+			<div class="sp1Portfolio_sub3">
+				<div class="sp1Portfolio_sub4">
+					<div class="sp1Portfolio_sub5">
+						<div class="sp1Portfolio_sub6">
+							<div class="sp1Portfolio_sub7">
+								<div class="sp1Portfolio_sub8">
+									<div class="sp1Portfolio_sub9">
+										<div class="sp1Portfolio_sub10">
+											<div class="sp1Portfolio_sub11">
+												<div class="sp1Portfolio_sub12">
+													<div class="sp1Portfolio_sub13">
+														<div class="sp1Portfolio_sub14">
+															<div class="sp1Portfolio_sub15">
+																<div class="sp1Portfolio_Intro">
+																	<div class="sp1Portfolio_Intro_sub">
+																		<h2>테스트용 사이트만의
+																			<br class="mobile-enter">
+																			특화된 IT 기술력을 보여드립니다.
+																		</h2>
+																	</div>
+																</div>
+																<div class="sp1Portfolio_sub16">
+																	<div class="sp1Portfolio_sub17">
+																		<div class="sp1Portfolio_sub18">
+																			<div class="sp1Portfolio_sub19">
+																				<!-- 구축실적 : 기간 오름차순으로 정렬 후 역순으로 리스트 배치 -->
+																				<%
+																				function sortJSON(data, key, type) {
+																					if (type == undefined) {
+																						type = "asc";
+																					}
+																					return data.sort(function(a, b) {
+																						var x = a[key];
+																						var y = b[key];
+																						if (type == "desc") {
+																							return x > y ? -1 : x < y ? 1 : 0;
+																						} else if (type == "asc") {
+																							return x < y ? -1 : x > y ? 1 : 0;
+																						}
+																					});
+																				};
+																				var sortData = sortJSON(portfolio, "endterm", "asc");
+																					sortData = sortJSON(portfolio, "startterm", "asc");           
+																				for(var i = portfolio.length-1; i >= 0; i--) {
+																					var data = sortData[i];
+																				%>
+																				<div class="sp1Portfolio_sub20 <% if(data.hiddenYN == 'Y') { %> hiddenClass<% } %>">
+																					<div class="sp1Portfolio_sub21">
+																						<div class="sp1Portfolio_sub22">
+																							<div class="sp1Portfolio_sub23">
+																								<div class="sp1Portfolio_sub24">
+																									<div class="sp1Portfolio_sub25">
+																										<div class="sp1Portfolio_sub26">
+																											<div class="sp1Portfolio_sub27">
+																												<div class="sp1Portfolio_sub28">
+																													<div class="sp1Portfolio_sub29">
+																														<div class="sp1Portfolio_sub30">
+																															<div class="sp1Portfolio_sub31">
+																																<div class="sp1Portfolio_sub32">
+																																	<img src="/uploads/<%= data.imagename %>">
+																																</div>
+																															</div>
+																														</div>
+																													</div>
+																												</div>
+																											</div>
+																										</div>
+																									</div>
+																								</div>
+																								<div class="sp1Portfolio_Info">
+																									<div class="sp1Portfolio_Info_sub">
+																										<div class="sp1Portfolio_Info_sub2">
+																											<div class="sp1Portfolio_Info_sub3">
+																												<div class="sp1Portfolio_Info_sub4">
+																													<div class="sp1Portfolio_Info_sub5">
+																														<div class="sp1Portfolio_Info_title">
+																															<div class="sp1Portfolio_Info_title_sub">
+																																<h2><%= data.customer %>&nbsp;<%= data.project %></h2>
+																															</div>
+																														</div>
+																														<div class="sp1Portfolio_Info_term">
+																															<div class="sp1Portfolio_Info_term_sub">
+																																<h2><%= data.startterm %>~<%= data.endterm %></h2>
+																															</div>																											
+																														</div>	
+																													</div>																											
+																												</div>																											
+																											</div>																											
+																										</div>																								
+																									</div>
+																								</div>	
+																							</div>	
+																						</div>	
+																					</div>	
+																				</div>
+																				<% } %>																				
+																			</div>	
+																		</div>	
+																	</div>	
+																</div>	
+															</div>	
+														</div>	
+													</div>	
+												</div>	
+											</div>
+										</div>
+									</div>	
+								</div>	
+							</div>	
+						</div>	
+					</div>	
+				</div>	
+			</div>	
+		</div>	
+	</div>	
+</div>
+
+<!-- 하단 공백 부분 -->
+<div class="blankContents">
+	<div class="blankContents_sub">
+		<div class="blankContents_sub2">
+			<div class="blankContents_sub3">
+				<div class="blankContents_sub4">
+					<div class="blankContents_sub5">
+						<div class="blankContents_sub6">
+							<div class="blankContents_sub7">
+								<div class="blankContents_sub8">
+									<div class="blankContents_sub9">
+									</div>	
+								</div>	
+							</div>	
+						</div>	
+					</div>	
+				</div>	
+			</div>	
+		</div>	
+	</div>	
+</div>
+<!-- End -->
+
+<%- include('../common/footer.ejs') %>

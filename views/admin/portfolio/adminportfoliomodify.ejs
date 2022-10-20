@@ -1,0 +1,296 @@
+<%- include('../../common/adminheader.ejs') %>
+<script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+<title>구축실적 수정 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>구축실적 수정</h1>          
+            <form method="POST" action="/portfolio_update" onsubmit="return contentsCheck();">
+                <%
+                var data = portfolioOne;
+                %>
+                <div class="write_table">
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>시리얼</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="serial" value="<%= data.serial %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>고객사명</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="customer" name="customer" value="<%= data.customer %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="customerMessage">※ 고객사명을 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>프로젝트명</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="project" name="project" value="<%= data.project %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="projectMessage">※ 프로젝트명을 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>시작월</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="startterm" name="startterm" value="<%= data.startterm %>" onKeyup="this.value=this.value.replace(/[^[0-9]/g, '');" maxlength="6">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="starttermMessage">※ 시작월(yyyymm)을 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>종료월</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="endterm" name="endterm" value="<%= data.endterm %>" onKeyup="this.value=this.value.replace(/[^[0-9]/g, '');" maxlength="6">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="endtermMessage">※ 종료월(yyyymm)을 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>이미지 등록</span>
+                        </div>
+                        <div class="write_table_div2_upload">
+                            <input type="file" id="imagefile" name="imagefile"/>
+                            <div class="resizeBtnDiv">
+                                <input type="button" id="resizeBtn" class="resizeBtn" value="이미지 편집"/>
+                            </div>  
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="imageMessage">※ 기존 사진이 등록되어 있습니다. (권장 사이즈 : 150 x 250 px)</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>공개/비공개</span>
+                        </div>
+                        <div class="write_table_div2_option">
+                            <select name="hiddenYN" title="hiddenYN">
+                                <option value="N">공개</option>
+                                <option value="Y" <% if(data.hiddenYN == 'Y') { %> selected <% } %>>비공개</option>
+                            </select>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>수정자명</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="modifier" value="<%= loginMember.name %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>수정일</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="modifydate" name="modifydate" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_btn">
+                        <input type="submit" value="수정"/>
+                        <a href="/admin/portfolio_delete?serial=<%= data.serial %>">
+                            <span>삭제</span>
+                        </a>
+                        <a href="/admin/portfolio">
+                            <span>돌아가기</span>
+                        </a>
+                    </div>
+                    <div style="font-size: 12px;">작성자: <%= data.writer %> / 작성일: <%=data.date %> / 수정자: <%= data.modifier %> / 수정일: <%=data.modifydate %></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+// 필수사항 입력 체크 함수
+function contentsCheck() {
+    var customer = $('#customer').val();
+    var project = $('#project').val();
+    var startterm = $('#startterm').val();
+    var endterm = $('#endterm').val()
+    if(customer == "" || project == "" || startterm == "" || endterm == "") {
+        alert('필수항목을 입력해주세요.');
+        return false;
+    }
+}
+
+$(function() {
+    $(function init() {      
+        // 수정일 오늘 날짜 자동기입
+        $('#modifydate').attr('value', todayDate());
+
+        // 월 포매터 적용
+        $('#startterm').change(function() {
+            var $this =  $('#startterm').val();
+            var formatmonth = monthformat($this);
+            $('#startterm').val(formatmonth);
+        });
+        $('#endterm').change(function() {
+            var $this =  $('#endterm').val();
+            var formatmonth = monthformat($this);
+            $('#endterm').val(formatmonth);
+        });
+
+        // 데이터 유무에 따른 알림 메시지 공개/비공개
+        if($('#customer').val() != "") {
+            $('#customerMessage').css('display', 'none');
+        }else {
+            $('#customerMessage').css('display', 'block');
+        }
+        if($('#project').val() != "") {
+            $('#projectMessage').css('display', 'none');
+        }else {
+            $('#projectMessage').css('display', 'block');
+        }
+        if($('#startterm').val() != "") {
+            $('#starttermMessage').css('display', 'none');
+        }else {
+            $('#starttermMessage').css('display', 'block');
+        }
+        if($('#endterm').val() != "") {
+            $('#endtermMessage').css('display', 'none');
+        }else {
+            $('#endtermMessage').css('display', 'block');
+        }
+
+        // 데이터 유무에 따른 알림 메시지 공개/비공개
+        $('#customer').change(function() {
+            if($('#customer').val() != "") {
+                $('#customerMessage').css('display', 'none');
+            }else {
+                $('#customerMessage').css('display', 'block');
+            }
+        });     
+        $('#project').change(function() {
+            if($('#project').val() != "") {
+                $('#projectMessage').css('display', 'none');
+            }else {
+                $('#projectMessage').css('display', 'block');
+            }
+        });  
+        $('#startterm').change(function() {
+            if($('#startterm').val() != "") {
+                $('#starttermMessage').css('display', 'none');
+            }else {
+                $('#starttermMessage').css('display', 'block');
+            }
+        });  
+        $('#endterm').change(function() {
+            if($('#endterm').val() != "") {
+                $('#endtermMessage').css('display', 'none');
+            }else {
+                $('#endtermMessage').css('display', 'block');
+            }
+        });
+        $('#imagefile').change(function() {
+            if($('#imagefile')[0].files.length != 0) {
+                $('#imageMessage').css('display', 'none');
+            }else {
+                $('#imageMessage').css('display', 'block');
+            }
+        });   
+
+        // 이미지 편집기 실행
+        $('#resizeBtn').on('click', function() {
+            window.open("/admin/imageeditor", "이미지 편집화면", "width=1070, height=530, top=0, left=0 overflow=hidden");
+        });
+    });
+});   
+</script>
+<%- include('../../common/adminfooter.ejs') %>

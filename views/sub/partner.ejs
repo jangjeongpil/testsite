@@ -1,0 +1,302 @@
+<%- include('../common/header.ejs') %>
+<!-- 관리자 페이지에서 항목 추가하면 자동으로 반영되는 페이지로 별도의 수정이 필요없는 페이지 -->
+
+<title>고객사 및 협력사 - 테스트용 사이트</title>
+<div class="sp1TopContents">
+	<div class="sp1Top">
+		<div class="sp1Top_sub">
+			<div class="sp1Top_sub2">
+				<div class="sp1Top_sub3">
+					<div class="sp1Top_sub4">
+						<div class="sp1Top_sub5">
+							<div class="sp1Top_sub6">
+								<div class="sp1Top_sub7">
+									<div class="sp1Top_sub8">
+										<div class="sp1Top_sub9">
+											<div class="sp1Top_sub10_sub">
+												<div class="sp1Top_sub11">
+													<div class="sp1Top_sub12">
+														<div class="sp1Top_sub13">
+															<div class="sp1Top_sub14">
+																<div class="sp1Top_sub15">
+																	<div class="sp1Top_sub15">
+																		<div class="sp1Top_sub16">
+																			<div class="sp1Top_sub17">
+																				<h1>고객사 및 협력사</h1>
+																			</div>												
+																		</div>
+																		<div class="sp1Top_sub18">
+																			<div class="sp1Top_sub19">
+																				<div class="sp1Top_sub20">
+																					<div class="sp1Top_sub21">
+																						<div class="sp1Top_sub22">
+																							<div class="sp1Top_sub23">
+																								<div class="sp1Top_sub24">
+																									<a href="/" class="sub24_Link">테스트용 사이트</a>																				
+																								</div>	
+																								<div class="sp1Top_sub24">
+																									<div class="sp1Top_sub25">
+																										<span><i>＞</i></span>																										
+																									</div>																				
+																								</div>
+																								<div class="sp1Top_sub24">
+																									<a href="/sub/portfolio" class="sub24_Link">포트폴리오</a>																				
+																								</div>
+																								<div class="sp1Top_sub24">
+																									<div class="sp1Top_sub25">
+																										<span><i>＞</i></span>																										
+																									</div>																				
+																								</div>
+																								<div class="sp1Top_sub24">
+																									<a href="/sub/partner" class="sub24_Link">고객사 및 협력사</a>																				
+																								</div>																			
+																							</div>																					
+																						</div>	
+																					</div>																					
+																				</div>																					
+																			</div>												
+																		</div>																															
+																	</div>													
+																</div>												
+															</div>												
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="blankContents">
+	<div class="blankContents_sub">
+		<div class="blankContents_sub2">
+			<div class="blankContents_sub3">
+				<div class="blankContents_sub4">
+					<div class="blankContents_sub5">
+						<div class="blankContents_sub6">
+							<div class="blankContents_sub7">
+								<div class="blankContents_sub8">
+									<div class="blankContents_sub9">
+									</div>	
+								</div>	
+							</div>	
+						</div>	
+					</div>	
+				</div>	
+			</div>	
+		</div>	
+	</div>	
+</div>
+
+<div class="sp1Partner">
+	<div class="sp1Partner_sub">
+		<div class="sp1Partner_sub2">
+			<div class="sp1Partner_sub3">
+				<div class="sp1Partner_sub4">
+					<div class="sp1Partner_sub5">
+						<div class="sp1Partner_sub6">
+							<div class="sp1Partner_sub7">
+								<div class="sp1Partner_sub8">
+									<div class="sp1Partner_sub9">
+										<div class="sp1Partner_sub10">
+											<div class="sp1Partner_sub11">
+												<div class="sp1Partner_sub12">
+													<div class="sp1Partner_sub13">
+														<div class="sp1Partner_sub14">
+															<div class="sp1Partner_sub15">
+																<div class="sp1Partner_sub16">
+																	<div class="sp1Partner_sub16_title">
+																		<div class="sp1Partner_sub16_title_sub">
+																			<h2>고객사</h2>
+																		</div>
+																	</div>
+																	<div class="sp1Partner_sub16_partner">
+																		<div class="sp1Partner_sub16_partner_sub">
+																			<div class="sp1Partner_sub16_partner_sub2">
+																				<%
+																				for(var i = 0; i < customerList.length; i++) {
+																					let data = customerList[i];
+																				%> 
+																				<div class="sp1Partner_sub16_partner_sub3 <% if(data.hiddenYN == 'Y') { %> hiddenClass<% } %>">
+																					<a href="<%= data.link %>" target='_blank'>
+																						<div class="sp1Partner_sub16_partner_sub4">																							
+																							<img src="/uploads/<%= data.imagename %>">
+																						</div>
+																						<div class="sp1Partner_sub16_partner_sub4_2">
+																							<h3><%= data.companyName %></h3>
+																						</div>
+																					</a>
+																				</div>
+																				<% } %> 
+																			</div>
+																		</div>
+																	</div>
+																</div>																
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="blankContents">
+	<div class="blankContents_sub">
+		<div class="blankContents_sub2">
+			<div class="blankContents_sub3">
+				<div class="blankContents_sub4">
+					<div class="blankContents_sub5">
+						<div class="blankContents_sub6">
+							<div class="blankContents_sub7">
+								<div class="blankContents_sub8">
+									<div class="blankContents_sub9">
+									</div>	
+								</div>	
+							</div>	
+						</div>	
+					</div>	
+				</div>	
+			</div>	
+		</div>	
+	</div>	
+</div>
+
+<div class="sp1Business_sub12_sub">
+	<div class="sp1Business_sub12_sub2">
+		<div class="sp1Business_sub12_sub3">
+			<div class="sp1Business_sub12_sub4">
+				<div class="sp1Business_sub12_sub5">
+					<div class="sp1Business_sub12_sub5_sub">
+						<div class="sp1Business_sub12_sub5_sub_sub">
+							<div class="sp1Business_sub12_sub5_sub_sub2">																				
+								<span></span>								
+							</div>	
+						</div>	
+					</div>		
+				</div>	
+			</div>	
+		</div>	
+	</div>	
+</div>
+
+<div class="blankContents">
+	<div class="blankContents_sub">
+		<div class="blankContents_sub2">
+			<div class="blankContents_sub3">
+				<div class="blankContents_sub4">
+					<div class="blankContents_sub5">
+						<div class="blankContents_sub6">
+							<div class="blankContents_sub7">
+								<div class="blankContents_sub8">
+									<div class="blankContents_sub9">
+									</div>	
+								</div>	
+							</div>	
+						</div>	
+					</div>	
+				</div>	
+			</div>	
+		</div>	
+	</div>	
+</div>
+
+<div class="sp1Partner">
+	<div class="sp1Partner_sub">
+		<div class="sp1Partner_sub2">
+			<div class="sp1Partner_sub3">
+				<div class="sp1Partner_sub4">
+					<div class="sp1Partner_sub5">
+						<div class="sp1Partner_sub6">
+							<div class="sp1Partner_sub7">
+								<div class="sp1Partner_sub8">
+									<div class="sp1Partner_sub9">
+										<div class="sp1Partner_sub10">
+											<div class="sp1Partner_sub11">
+												<div class="sp1Partner_sub12">
+													<div class="sp1Partner_sub13">
+														<div class="sp1Partner_sub14">
+															<div class="sp1Partner_sub15">
+																<div class="sp1Partner_sub16">
+																	<div class="sp1Partner_sub16_title">
+																		<div class="sp1Partner_sub16_title_sub">
+																			<h2>협력사</h2>
+																		</div>
+																	</div>
+																	<div class="sp1Partner_sub16_partner">
+																		<div class="sp1Partner_sub16_partner_sub">
+																			<div class="sp1Partner_sub16_partner_sub2">
+																				<%
+                                                                                for(var i = 0; i < partnerList.length; i++) {
+                                                                                    var data = partnerList[i];
+                                                                                %>
+                                                                                <div class="sp1Partner_sub16_partner_sub3 <% if(data.hiddenYN == 'Y') { %> hiddenClass<% } %>">
+                                                                                	<a href="<%= data.link %>" target='_blank'>
+																						<div class="sp1Partner_sub16_partner_sub4">
+																							<img src="/uploads/<%= data.imagename %>">
+																						</div>
+																						<div class="sp1Partner_sub16_partner_sub4_2">
+																							<h3><%= data.companyName %></h3>
+																						</div>
+                                                                                    </a>
+																				</div>
+																				<% } %>  
+																			</div>
+																		</div>
+																	</div>
+																</div>																
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="blankContents">
+	<div class="blankContents_sub">
+		<div class="blankContents_sub2">
+			<div class="blankContents_sub3">
+				<div class="blankContents_sub4">
+					<div class="blankContents_sub5">
+						<div class="blankContents_sub6">
+							<div class="blankContents_sub7">
+								<div class="blankContents_sub8">
+									<div class="blankContents_sub9">
+									</div>	
+								</div>	
+							</div>	
+						</div>	
+					</div>	
+				</div>	
+			</div>	
+		</div>	
+	</div>	
+</div>
+
+<%- include('../common/footer.ejs') %>

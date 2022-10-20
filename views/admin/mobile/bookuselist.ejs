@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/ico.jpg" type="image/ico" />
+    <link href="/css/mobile.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+</head>
+<title>대여가능 도서 리스트 페이지 - 테스트용 사이트</title>
+<body>
+    <div class="adminwrap mobilemain"> 
+        <div class="admin_body">
+            <div class="admin_content">
+                <div class="admin_contentwrap">
+                    <div style="text-align: center;">
+                        <h1>대여가능 도서 리스트</h1>
+                    </div>
+                    <table class="admin_board" style="font-size: 13px;">
+                        <colgroup>
+                            <col width="25%">
+                            <col width="25%">
+                            <col width="25%">
+                            <col width="25%">
+                        </colgroup>
+                        <%
+                        for(var i = 0; i < bookList.length; i++) {
+                            var data = bookList[i];
+                        %>
+                        <tbody class="adminboard_body boardlist" style="font-size: 13px;">
+                            <tr>
+                                <th colspan="4" style="border-right: none;">
+                                    <span><% if(data.imagename != "") { %><img src="/uploads/<%= data.imagename %>" style="width:60%; margin-top: 10px"><% } %></span>
+                                </th>
+                            </tr> 
+                            <tr>
+                                <th>유형</th>
+                                <td><span><%= data.bookType %></span></td>
+                                <th>관리번호</th>
+                                <td style="border-right: none;">
+                                    <span>
+                                        <a class="modal_open" 
+                                            data-imagename="<%= data.imagename %>" data-bookType="<%= data.bookType %>" data-managementNumber="<%= data.managementNumber %>"
+                                            data-bookName="<%= data.bookName %>" data-purchaseDate="<%= data.purchaseDate %>" data-revisionYear="<%= data.revisionYear %>"
+                                            data-user="<%= data.user %>" data-link="<%= data.link %>" data-reference="<%= data.reference %>">                         
+                                        <%= data.managementNumber %></a>
+                                    </span>
+                                </td>                
+                            </tr>
+                            <tr>
+                                <th>도서명</th>
+                                <td colspan="3" style="border-right: none;"><span><%= data.bookName %></span></td>            
+                            </tr>
+                            <tr>
+                                <th>개정년도</th>
+                                <td><span><%= data.revisionYear %></span></td>
+                                <th>대여유무</th>
+                                <td style="border-right: none;"><span><%= data.useYN %></span></td>                
+                            </tr>  
+                            <tr>
+                                <th>목차</th>
+                                <td style="text-align: center;"><span><a href="<%= data.link %>" target="_blank">[링크]</a></span></td>
+                                <th>이력</th>   
+                                <td style="text-align: center; border-right: none;">
+                                    <a class="historyBtn" data-bookHistory="<%= data.bookHistory %>" href="javascript:void(0);">[이력]</a>  
+                                </td>            
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="text-align: center; border-right: none;">
+                                    <span>
+                                        <a class="modal2_open" data-managementNumber="<%= data.managementNumber %>" href="javascript:void(0);">[대여신청]</a>
+                                    </span>
+                                </td>     
+                            </tr>  
+                            <tr>
+                                <th colspan="4" style="border-top: none; border-left: none; border-right: none;"></th>        
+                            </tr>                                     
+                        </tbody>
+                        <%
+                        }
+                        %>  
+                        <tbody class="adminboard_body moreBtn" style="font-size: 15px;">
+                            <tr>
+                                <td id="moreBtn" colspan="4" style="text-align:center; border-left: 1px solid #c3c4c7;">
+                                    더보기
+                                </td>
+                            </tr>
+                        </tbody>  
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include('mobilehistory.ejs') %>    
+<%- include('bookmobiledetail.ejs') %>
+<%- include('bookmobileuseapply.ejs') %>
+</body>
+<script>
+$(function() {
+    $(function init() {
+        var moreBtn = $('#moreBtn');
+
+        $(".boardlist").slice(0, 5).show();
+        if($(".boardlist:hidden").length == 0){
+            $('.moreBtn').hide();
+            $('#moreBtn').hide();
+        }
+        moreBtn.on('click', function(e) {
+            e.preventDefault();
+            $(".boardlist:hidden").slice(0, 5).show();
+            if($(".boardlist:hidden").length == 0){
+                $('.moreBtn').hide();
+                $('#moreBtn').hide();
+            }
+        });
+
+        var historyBtn = $('.historyBtn');
+        var close_historyBtn = $('#close_historyBtn');
+        var mobile_historymodal = $('.mobile_historymodal');
+
+        historyBtn.on('click', function() {
+            var $this = $(this);
+            var bookHistory = $this.data('bookhistory');
+            var modal_bookHistory = $('#modal_history');
+            if(bookHistory != "") { 
+                var split = bookHistory.split(',');
+                var text_split = '';
+                for(var i = 0; i < split.length; i++) {
+                    text_split += split[i] + '\n';
+                }
+                modal_bookHistory.text(text_split);
+            }
+            mobile_historymodal.show();
+            mobilemain.hide();
+        });
+
+        close_historyBtn.on('click', function() {
+            var modal_bookHistory = $('#modal_history');
+            modal_bookHistory.text('');
+            mobile_historymodal.hide();
+            mobilemain.show();
+        });
+
+        var mobilemain = $('.mobilemain');
+        var mobilemodal = $('.mobilemodal');
+        var modal_open = $('.modal_open');
+        var modal_exitBtn = $('#modal_exitBtn');
+    
+        modal_open.on('click', function() {
+            var $this = $(this);
+            var imagename = $this.data('imagename');
+            var bookType = $this.data('booktype');
+            var managementNumber = $this.data('managementnumber');
+            var bookName = $this.data('bookname');
+            var purchaseDate = $this.data('purchasedate');
+            var revisionYear = $this.data('revisionyear');
+            var user = $this.data('user');
+            var link = $this.data('link');
+            var reference = $this.data('reference');
+
+            $('#modal_image').attr("src", "/uploads/" + imagename);
+            $('#modal_bookType').text(bookType);
+            $('#modal_managementNumber').text(managementNumber);
+            $('#modal_bookName').text(bookName);
+            $('#modal_purchaseDate').text(purchaseDate);
+            $('#modal_revisionYear').text(revisionYear);
+            $('#modal_user').text(user);
+            $('#modal_link').attr("href", link);
+            $('#modal_reference').text(reference);
+
+            mobilemodal.show();
+            mobilemain.hide();
+        });
+
+        modal_exitBtn.on('click', function() {
+            mobilemodal.hide();
+            mobilemain.show();
+        });
+
+        var modal_use_apply = $('.modal_use_apply');
+        var modal2_open = $('.modal2_open');
+        var modal_exitBtn2 = $('#modal_exitBtn2');
+
+        modal2_open.on('click', function() {
+            var $this = $(this);
+            var managementNumber = $this.data('managementnumber');
+            $('#useapply_managementNumber').text(managementNumber);
+
+            modal_use_apply.show();
+            mobilemain.hide();
+        });
+
+        modal_exitBtn2.on('click', function() {
+            modal_use_apply.hide();
+            $('#useapply_useStartDate').val(todayDate());
+            $('#useapply_useEndDate').val("");
+            mobilemain.show();
+        });
+
+        // 사용신청 버튼을 클릭하면 신청 후 팝업창 종료
+        var postFormBtn = $('#postFormBtn');
+        postFormBtn.on('click', function() {
+            if($('#useapply_useStartDate').val() == "" ||  $('#useapply_useEndDate').val() == "") {
+                alert('필수항목을 입력해해주세요.');
+                return false;
+            }else {
+                if(getDateDiff($('#useapply_useEndDate').val(), $('#useapply_useStartDate').val()) < 0) {
+                    alert('반납일이 신청일보다 이전 날짜입니다.');
+                    return false;
+                }else {
+                    var data = {
+                        'useYN': $('#useapply_useYN').val(),
+                        'user': $('#useapply_user').text(),
+                        'useStartDate': $('#useapply_useStartDate').val(),
+                        'useEndDate': $('#useapply_useEndDate').val(),
+                        'managementNumber': $('#useapply_managementNumber').text()
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: '/book_mobile_use_apply',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },                
+                        data: JSON.stringify(data)
+                    });
+                    setTimeout(function(){
+                        modal_use_apply.hide();
+                        $('#useapply_useStartDate').val(todayDate());
+                        $('#useapply_useEndDate').val("");
+                        mobilemain.show();
+                    }, 100);
+                }
+            }
+        });
+
+        // 취소하기 버튼을 클릭하면 BOT 팝업창 종료
+        $('#cancelBtn').on('click', function() {
+            modal_use_apply.hide();
+            $('#useapply_useStartDate').val(todayDate());
+            $('#useapply_useEndDate').val("");
+            mobilemain.show();            
+        });        
+    });
+});
+</script>
+</html>

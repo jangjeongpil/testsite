@@ -1,0 +1,225 @@
+<%- include('../../common/adminheader.ejs') %>
+<script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+<title>회사연혁 수정 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>연혁내용 추가</h1>          
+            <form method="POST" action="/history_create" onsubmit="return contentsCheck();">
+                <div class="write_table">
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>연혁년도</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="year" name="year" value="" onKeyup="this.value=this.value.replace(/[^[0-9]/g, '');" maxlength="4">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="yearMessage">※ 연혁년도를 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>연혁월</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="month" name="month" value="" onKeyup="this.value=this.value.replace(/[^[0-9]/g, '');" maxlength="2">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="monthMessage">※ 연혁월을 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>순번</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="number" value="" onKeyup="this.value=this.value.replace(/[^[0-9]/g, '');" maxlength="3">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>고객사명</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="customer" name="customer" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="customerMessage">※ 고객사명을 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>프로젝트명</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="project" name="project" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="projectMessage">※ 프로젝트명을 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>공개/비공개</span>
+                        </div>
+                        <div class="write_table_div2_option">
+                            <select name="hiddenYN" title="hiddenYN">
+                                <option value="N">공개</option>
+                                <option value="Y">비공개</option>
+                            </select>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>작성자명</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="writer" value="<%= loginMember.name %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>작성일</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="date" id="date" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_btn">
+                        <input type="submit" value="등록"/>
+                        <a href="/admin/history">
+                            <span>돌아가기</span>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+// 필수사항 입력 체크 함수
+function contentsCheck() {
+    if($('#year').val() == "" || $('#month').val() == "" || $('#customer').val() == "" || $('#project').val() == "") {
+        alert('필수항목을 입력해주세요.');
+        return false;
+    }
+}
+
+$(function() {
+    $(function init() { 
+        // 작성일 오늘 날짜 자동기입
+        $('#date').attr('value', todayDate());
+
+        // 데이터 유무에 따른 알림 메시지 공개/비공개
+        $('#year').change(function() {
+            if($('#year').val() != "") {
+                $('#yearMessage').css('display', 'none');
+            }else {
+                $('#yearMessage').css('display', 'block');
+            }
+        });     
+        $('#month').change(function() {
+            if($('#month').val() != "") {
+                $('#monthMessage').css('display', 'none');
+            }else {
+                $('#monthMessage').css('display', 'block');
+            }
+        });  
+        $('#customer').change(function() {
+            if($('#customer').val() != "") {
+                $('#customerMessage').css('display', 'none');
+            }else {
+                $('#customerMessage').css('display', 'block');
+            }
+        });  
+        $('#project').change(function() {
+            if($('#project').val() != "") {
+                $('#projectMessage').css('display', 'none');
+            }else {
+                $('#projectMessage').css('display', 'block');
+            }
+        });          
+    });
+});
+</script>
+<%- include('../../common/adminfooter.ejs') %>

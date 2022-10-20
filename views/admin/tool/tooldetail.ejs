@@ -1,0 +1,804 @@
+<%- include('../../common/adminheader.ejs') %>
+<script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+<title>관리장비 상세 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>관리장비 상세</h1>          
+            <form>
+                <%
+                var data = toolOne;
+                %>
+                <div class="write_table">
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>유형</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span id="productType"><%= data.productType %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>관리번호</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.managementNumber %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn1_1">
+                        <div class="write_table_div1">
+                            <span>제조사</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.maker %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn1_2">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn2_1" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>통신사</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.telecom %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn2_2" style="display: none;">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>제품명</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.productName %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn3_1">
+                        <div class="write_table_div1">
+                            <span>화면크기</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.inch %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn3_2">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn4_1">
+                        <div class="write_table_div1">
+                            <span>CPU</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.cpu %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn4_2">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn5_1">
+                        <div class="write_table_div1">
+                            <span>메모리</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.memory %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn5_2">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn6_1">
+                        <div class="write_table_div1">
+                            <span>윈도우 유무</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.windowYN %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn6_2">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn7_1" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>연결타입</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.connectionType %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn7_2" style="display: none;">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn8_1" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>LAN 지원유무</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.lanYN %></span>
+                            <span>
+                                <%
+                                if(data.lanYN == "Y") {
+                                %>   
+                                지원 
+                                <%
+                                } else { 
+                                %> 
+                                미지원
+                                <% } %>
+                            </span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn8_2" style="display: none;">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>시리얼 번호</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.productSerial %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn9_1" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>UDID(iPhone Only)</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.udid %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn9_2" style="display: none;">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn10_1" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>OS Version</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.osVersion %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn10_2" style="display: none;">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn11_1" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>개통번호</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.phoneNumber %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn11_2" style="display: none;">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div" id="selectColumn12_1" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>요금제 및 데이터</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.callingPlan %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div" id="selectColumn12_2" style="display: none;">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>구매일</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.purchaseDate %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>사용자</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.user %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>사용처</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.usePlace %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>이미지 등록</span>
+                        </div>
+                        <div class="write_table_div2_modify" style="height: 520px;">
+                            <span><% if(data.imagename != "") { %><img src="/uploads/<%= data.imagename %>" style="width:90%; margin-top: 10px"><% } %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>비고</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.reference %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_btn">
+                        <a href="/admin/tool/modify?managementNumber=<%= data.managementNumber %>">
+                            <span>정보수정</span>
+                        </a>
+                        <a id="excel_downBtn" href="javascript:void(0);">
+                            <span>엑셀다운</span>
+                        </a>
+                        <a href="/admin/tool">
+                            <span>돌아가기</span>
+                        </a>
+                    </div>
+                    <div style="font-size: 12px;">작성자: <%= data.writer %> / 작성일: <%=data.date %> / 수정자: <%= data.modifier %> / 수정일: <%=data.modifydate %></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<table id="excel_table" style="display: none;">
+    <thead>
+        <tr>
+            <th>유형</th>
+            <th>관리번호</th>
+            <th>제조사</th>
+            <th>통신사</th>
+            <th>제품명</th>
+            <th>화면크기</th>
+            <th>cpu</th>
+            <th>메모리</th>
+            <th>윈도우 유무</th>
+            <th>연결타입</th>
+            <th>LAN 지원유무</th>
+            <th>시리얼 번호</th>
+            <th>UDID(iPhone Only)</th>
+            <th>OS Version</th>
+            <th>개통번호</th>
+            <th>요금제 및 데이터</th>
+            <th>구매일</th>
+            <th>사용자</th>
+            <th>사용처</th>
+            <th>비고</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><%= data.productType %></td>
+            <td><%= data.managementNumber %></td>
+            <td><%= data.maker %></td>
+            <td><%= data.telecom %></td>
+            <td><%= data.productName %></td>
+            <td><%= data.inch %></td>
+            <td><%= data.cpu %></td>
+            <td><%= data.memory %></td>
+            <td><%= data.windowYN %></td>
+            <td><%= data.connectionType %></td>
+            <td><%= data.lanYN %></td>
+            <td><%= data.productSerial %></td>
+            <td><%= data.udid %></td>
+            <td><%= data.osVersion %></td>
+            <td><%= data.phoneNumber %></td>
+            <td><%= data.callingPlan %></td>
+            <td><%= data.purchaseDate %></td>
+            <td><%= data.user %></td>
+            <td><%= data.usePlace %></td>
+            <td><%= data.reference %></td>
+        </tr> 
+    </tbody>
+</table>
+<script>
+$(function() {
+    $(function init() {      
+        function download() {
+            // 대상 테이블을 가져옴
+            var table = $('#excel_table');
+            
+            if(table) {
+                // CASE 대상 테이블이 존재하는 경우
+                
+                // 엑셀다운 (엑셀파일명, 시트명, 내부데이터 HTML)
+                _excelDown("장비상세정보.xls", "장비상세정보", table[0].outerHTML)
+            }
+        }
+
+        var excel_downBtn = $('#excel_downBtn');
+        excel_downBtn.on('click', function() {
+            download();
+        });
+
+        var selectColumn1_1 = $('#selectColumn1_1');
+        var selectColumn1_2 = $('#selectColumn1_2');
+        var selectColumn2_1 = $('#selectColumn2_1');
+        var selectColumn2_2 = $('#selectColumn2_2');
+        var selectColumn3_1 = $('#selectColumn3_1');
+        var selectColumn3_2 = $('#selectColumn3_2');
+        var selectColumn4_1 = $('#selectColumn4_1');
+        var selectColumn4_2 = $('#selectColumn4_2');
+        var selectColumn5_1 = $('#selectColumn5_1');
+        var selectColumn5_2 = $('#selectColumn5_2');
+        var selectColumn6_1 = $('#selectColumn6_1');
+        var selectColumn6_2 = $('#selectColumn6_2');
+        var selectColumn7_1 = $('#selectColumn7_1');
+        var selectColumn7_2 = $('#selectColumn7_2');
+        var selectColumn8_1 = $('#selectColumn8_1');
+        var selectColumn8_2 = $('#selectColumn8_2');
+        var selectColumn9_1 = $('#selectColumn9_1');
+        var selectColumn9_2 = $('#selectColumn9_2');
+        var selectColumn10_1 = $('#selectColumn10_1');
+        var selectColumn10_2 = $('#selectColumn10_2');
+        var selectColumn11_1 = $('#selectColumn11_1');
+        var selectColumn11_2 = $('#selectColumn11_2');
+        var selectColumn12_1 = $('#selectColumn12_1');
+        var selectColumn12_2 = $('#selectColumn12_2');
+
+        // 장비 유형에 따른 정보 컬럼 공개/비공개
+        if($('#productType').text() == "노트북") {
+            selectColumn1_1.show();
+            selectColumn1_2.show();
+            selectColumn2_1.hide();
+            selectColumn2_2.hide();
+            selectColumn3_1.show();
+            selectColumn3_2.show();          
+            selectColumn4_1.show();
+            selectColumn4_2.show();
+            selectColumn5_1.show();
+            selectColumn5_2.show();
+            selectColumn6_1.show();
+            selectColumn6_2.show();
+            selectColumn7_1.hide();
+            selectColumn7_2.hide();
+            selectColumn8_1.hide();
+            selectColumn8_2.hide();
+            selectColumn9_1.hide();
+            selectColumn9_2.hide();
+            selectColumn10_1.hide();
+            selectColumn10_2.hide();
+            selectColumn11_1.hide();
+            selectColumn11_2.hide();
+            selectColumn12_1.hide();
+            selectColumn12_2.hide();
+        }else if($('#productType').text() == "모니터") {
+            selectColumn1_1.show();
+            selectColumn1_2.show();
+            selectColumn2_1.hide();
+            selectColumn2_2.hide();
+            selectColumn3_1.show();
+            selectColumn3_2.show();          
+            selectColumn4_1.hide();
+            selectColumn4_2.hide();
+            selectColumn5_1.hide();
+            selectColumn5_2.hide();
+            selectColumn6_1.hide();
+            selectColumn6_2.hide();
+            selectColumn7_1.hide();
+            selectColumn7_2.hide();
+            selectColumn8_1.hide();
+            selectColumn8_2.hide();
+            selectColumn9_1.hide();
+            selectColumn9_2.hide();
+            selectColumn10_1.hide();
+            selectColumn10_2.hide();
+            selectColumn11_1.hide();
+            selectColumn11_2.hide();
+            selectColumn12_1.hide();
+            selectColumn12_2.hide();
+        }else if($('#productType').text() == "PC 본체") {
+            selectColumn1_1.show();
+            selectColumn1_2.show();
+            selectColumn2_1.hide();
+            selectColumn2_2.hide();
+            selectColumn3_1.hide();
+            selectColumn3_2.hide();          
+            selectColumn4_1.show();
+            selectColumn4_2.show();
+            selectColumn5_1.show();
+            selectColumn5_2.show();
+            selectColumn6_1.show();
+            selectColumn6_2.show();
+            selectColumn7_1.hide();
+            selectColumn7_2.hide();
+            selectColumn8_1.hide();
+            selectColumn8_2.hide();
+            selectColumn9_1.hide();
+            selectColumn9_2.hide();
+            selectColumn10_1.hide();
+            selectColumn10_2.hide();
+            selectColumn11_1.hide();
+            selectColumn11_2.hide();
+            selectColumn12_1.hide();
+            selectColumn12_2.hide();
+        }else if($('#productType').text() == "RJ45 이더넷 어댑터") {
+            selectColumn1_1.show();
+            selectColumn1_2.show();
+            selectColumn2_1.hide();
+            selectColumn2_2.hide();
+            selectColumn3_1.hide();
+            selectColumn3_2.hide();          
+            selectColumn4_1.hide();
+            selectColumn4_2.hide();
+            selectColumn5_1.hide();
+            selectColumn5_2.hide();
+            selectColumn6_1.hide();
+            selectColumn6_2.hide();
+            selectColumn7_1.show();
+            selectColumn7_2.show();
+            selectColumn8_1.show();
+            selectColumn8_2.show();
+            selectColumn9_1.hide();
+            selectColumn9_2.hide();
+            selectColumn10_1.hide();
+            selectColumn10_2.hide();
+            selectColumn11_1.hide();
+            selectColumn11_2.hide();
+            selectColumn12_1.hide();
+            selectColumn12_2.hide();
+        }else if($('#productType').text() == "테스트 단말기") {
+            selectColumn1_1.show();
+            selectColumn1_2.show();
+            selectColumn2_1.hide();
+            selectColumn2_2.hide();
+            selectColumn3_1.hide();
+            selectColumn3_2.hide();          
+            selectColumn4_1.hide();
+            selectColumn4_2.hide();
+            selectColumn5_1.hide();
+            selectColumn5_2.hide();
+            selectColumn6_1.hide();
+            selectColumn6_2.hide();
+            selectColumn7_1.hide();
+            selectColumn7_2.hide();
+            selectColumn8_1.hide();
+            selectColumn8_2.hide();
+            selectColumn9_1.show();
+            selectColumn9_2.show();
+            selectColumn10_1.show();
+            selectColumn10_2.show();
+            selectColumn11_1.hide();
+            selectColumn11_2.hide();
+            selectColumn12_1.hide();
+            selectColumn12_2.hide();
+        }else if($('#productType').text() == "USB HUB") {
+            selectColumn1_1.show();
+            selectColumn1_2.show();
+            selectColumn2_1.hide();
+            selectColumn2_2.hide();
+            selectColumn3_1.hide();
+            selectColumn3_2.hide();          
+            selectColumn4_1.hide();
+            selectColumn4_2.hide();
+            selectColumn5_1.hide();
+            selectColumn5_2.hide();
+            selectColumn6_1.hide();
+            selectColumn6_2.hide();
+            selectColumn7_1.show();
+            selectColumn7_2.show();
+            selectColumn8_1.show();
+            selectColumn8_2.show();
+            selectColumn9_1.hide();
+            selectColumn9_2.hide();
+            selectColumn10_1.hide();
+            selectColumn10_2.hide();
+            selectColumn11_1.hide();
+            selectColumn11_2.hide();
+            selectColumn12_1.hide();
+            selectColumn12_2.hide();
+        }else if($('#productType').text() == "USIM") {
+            selectColumn1_1.hide();
+            selectColumn1_2.hide();
+            selectColumn2_1.show();
+            selectColumn2_2.show();
+            selectColumn3_1.hide();
+            selectColumn3_2.hide();          
+            selectColumn4_1.hide();
+            selectColumn4_2.hide();
+            selectColumn5_1.hide();
+            selectColumn5_2.hide();
+            selectColumn6_1.hide();
+            selectColumn6_2.hide();
+            selectColumn7_1.hide();
+            selectColumn7_2.hide();
+            selectColumn8_1.hide();
+            selectColumn8_2.hide();
+            selectColumn9_1.hide();
+            selectColumn9_2.hide();
+            selectColumn10_1.hide();
+            selectColumn10_2.hide();
+            selectColumn11_1.show();
+            selectColumn11_2.show();
+            selectColumn12_1.show();
+            selectColumn12_2.show();
+        }else if($('#productType').text() == "EGG") {
+            selectColumn1_1.hide();
+            selectColumn1_2.hide();
+            selectColumn2_1.show();
+            selectColumn2_2.show();
+            selectColumn3_1.hide();
+            selectColumn3_2.hide();          
+            selectColumn4_1.hide();
+            selectColumn4_2.hide();
+            selectColumn5_1.hide();
+            selectColumn5_2.hide();
+            selectColumn6_1.hide();
+            selectColumn6_2.hide();
+            selectColumn7_1.hide();
+            selectColumn7_2.hide();
+            selectColumn8_1.hide();
+            selectColumn8_2.hide();
+            selectColumn9_1.hide();
+            selectColumn9_2.hide();
+            selectColumn10_1.hide();
+            selectColumn10_2.hide();
+            selectColumn11_1.hide();
+            selectColumn11_2.hide();
+            selectColumn12_1.show();
+            selectColumn12_2.show();
+        };
+    });
+});
+</script>
+<%- include('../../common/adminfooter.ejs') %>

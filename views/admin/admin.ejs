@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/ico.jpg" type="image/ico" />
+    <link href="/css/dashicons.min.css" id="dashicons-css" rel="stylesheet" type="text/css" media="all">
+    <link href="/css/admin.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+    <title>관리자 로그인 - 테스트용 사이트</title>
+</head>
+<body>
+    <div class="login">
+        <h1>
+            <a href="/"></a>
+        </h1>
+        <p class="loginMessage">
+            로그인 부탁드립니다.
+        </p>
+        <form class="loginform" method="get" action="https://auth.worksmobile.com/oauth2/v2.0/authorize" onsubmit="return idCheck();">
+            <p>
+                <input type="hidden" name="client_id" class="input" value="oatXMRh2zVrfjKdqosrr">
+                <input type="hidden" name="redirect_uri" class="input" value="http://192.168.160.186:9000/admin/login">
+                <input type="hidden" name="scope" class="input" value="bot,user.read">
+                <input type="hidden" name="response_type" class="input" value="code">
+                <input type="hidden" id="login_id" name="state" class="input" value="login">
+            </p>
+            <p class="submit" style="float: none;">
+                <input type="submit" id="wp-submit" class="wp-submit" value="네이버웍스 로그인">
+			</p>
+        </form>
+        <p id="backtoblog">
+			<a href="/">← 테스트용 사이트(으)로 가기</a>
+        </p>
+    </div>
+    <span id="mobileYN" style="display: none;"><%= page_mobileYN %></span>
+    <span id="mobileYN2" style="display: none;"><%= mobile_mainYN %></span>
+</body>
+<script>
+// 아이디값 체크 여부
+function idCheck() {
+    var login_id = $('#login_id').val();
+    if(login_id == "") {
+        alert('로그인 아이디를 입력해주십시오.');
+        return false;
+    }
+}
+$(function() {
+    $(function init() { 
+        if($('#mobileYN').text() == "Y" || $('#mobileYN2').text() == "Y") {
+            $('#wp-submit').trigger('click');
+        }
+    });
+});
+</script>
+</html>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>이미지 편집화면</title>
+	<script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="/node_modules/cropper/dist/cropper.js"></script>
+	<link rel="stylesheet" href="/node_modules/cropper/dist/cropper.css">
+</head>
+<style>
+/* 기본 */
+@charset "utf-8";
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 100;src: url(../fonts/NotoSansKR-Thin.otf) format('opentype');}
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 300;src: url(../fonts/NotoSansKR-Light.otf) format('opentype');}
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 400;src: url(../fonts/NotoSansKR-Regular.otf) format('opentype');}
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 500;src: url(../fonts/NotoSansKR-Medium.otf) format('opentype');}
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 700;src: url(../fonts/NotoSansKR-Bold.otf) format('opentype');}
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 900;src: url(../fonts/NotoSansKR-Black.otf) format('opentype');}
+
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+a {
+	text-decoration: none;
+	color: black;
+}
+body, html {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	height: 100%;
+}
+.container {
+    width: 100%;
+	margin-left: 0;
+    margin-right: 0;
+}
+.editor_head {
+	background-color: black;
+	display: flex;
+    flex-wrap: wrap;
+	width: 1060px;
+}
+.head_div1 {
+	width: 60%;
+	height: 80px;
+	color: #FFF;
+	font-size: 30px;
+	line-height: 80px;
+}
+.head_div1 > span {
+	margin-left: 30px;
+}
+.head_div2 {
+	width: 40%;
+	height: 80px;
+	text-align: center;
+	float: right;
+}
+.btn-group {
+	width: 120px;
+	height: 40px;
+	font-size: 13px;
+	background-color: #FFF;
+	color: black;
+	float: left;
+	margin-top: 20px;
+	margin-right: 15px;
+	border-radius: 4px;
+}
+.editor_btn {
+	width: 100%;
+	background-color: #FFF;
+	border: none;
+	margin: 0;
+	padding: 0;
+	float: left;
+	border-radius: 4px;
+}
+.editor_btn > img {
+	width: 20px;
+	height: 20px;
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.btn_div1 {
+	width: 27%;
+	float: left;
+}
+.btn_div2 {
+	width: 73%;
+	float: left;
+	margin-top: 10px;
+}
+.editor_btn > .btn_div1 > img {
+	width: 20px;
+	height: 20px;
+	margin: 10px 0px 5px 5px;
+}
+.editor_btn > a > .download > img {
+	width: 20px;
+	height: 20px;
+	margin: 10px 0px 5px 5px;
+}
+.editor_btn > .btn_div2 > span {
+	width: 20px;
+	height: 20px;
+	margin-top: 10px;
+	margin-right: 5px;
+}
+.editor_btn > a > .download > span {
+	width: 20px;
+	height: 20px;
+	margin-top: 10px;
+	margin-right: 5px;
+}
+.image_title {
+	width: 1060px;
+	height: 40px;
+	color: #FFF;
+	font-size: 26x;
+	font-weight: 500;
+	text-align: center;
+	line-height: 40px;
+}
+.image_title_div1 {
+	width: 58%;
+	height: 100%;
+	background-color: grey;
+	float: left;
+}
+.image_title_div3 {
+	width: 1%;
+	height: 100%;
+	float: left;
+}
+.image_title_div2 {
+	width: 41%;
+	height: 100%;
+	background-color: grey;
+	float: left;
+}
+.image_editor {
+	width: 1060px;
+	height: 400px;
+	display: flex;
+}
+.image_edit {
+	width: 58%;
+	height: 400px;
+	float: left;
+}
+.image_div {
+	width: 1%;
+	height: 400px;
+	float: left;
+}
+#imgView{
+	width: 100%;
+	height: 400px;
+}
+.image_preview {
+	width: 41%;
+	height: 400px;
+	float: left;
+}
+.image_preview_sub {
+	width: 100%;
+	height: 100%;
+}
+.img-preview {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.img-preview img {
+	width: 100%;
+	height: 100%;
+}
+.img_nonbg {
+	background:url('/images/pattern.png');	
+}
+
+
+
+
+
+
+
+#wrap{
+	margin:auto;
+	width:900px;
+}
+
+#actions{margin-right:10px;}
+
+.onedays_editor{padding:0 0 0 0;height:400px;}
+
+.footerRow{margin-top:5px;width:1056px;}
+.footer{color:#fff}
+.footer span{margin:auto}
+
+.modal-body{text-align:center;}
+
+.btn-openfile{margin-right:10px;}
+
+.alert_two_parent{padding-left:0px;width:439px}
+.alert_two{margin-left:5px;}
+.onedaysAlert{margin-top:5px; margin-bottom:0px;font-weight:bold;}
+</style>
+<body>
+<div class="container">
+	<div class="editor_head">
+		<div class="head_div1">
+			<span>Photo Editor</span>
+		</div>
+		<div class="head_div2 docs-buttons">
+			<div class="btn-group">
+				<label class="editor_btn" for="inputImage" title="업로드 파일 선택">
+					<input type="file" class="sr-only" id="inputImage" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff" style="display: none;">
+					<div class="btn_div1"><img src="/images/카메라 아이콘.png"></div>
+					<div class="btn_div2"><span>사진 불러오기</span></div>
+				</label>
+			</div>			
+			<div class="btn-group" style="width: 120px;">
+				<button type="button" class="btn editor_btn" id="rotateBtn" data-method="rotate" data-option="90deg" title="이동" style="width: 33.333%;">
+					<img src="/images/회전 아이콘.png">
+				</button>
+				<button type="button" class="btn editor_btn" id="zoomPlusBtn" data-method="zoom" data-option="0.1" title="확대" style="width: 33.333%;">
+					<img src="/images/돋보기 확대.png">
+				</button>
+				<button type="button" class="btn editor_btn" id="zoomMinusBtn" data-method="zoom" data-option="-0.1" title="축소" style="width: 33.333%;">
+					<img src="/images/돋보기 축소.png">
+				</button>
+			</div>			
+			<div class="btn-group">
+				<button type="button" id="photoDownload" class="btn editor_btn" data-method="getCroppedDownload">
+					<a id="download" href="#" download="editImage.png"><div class="btn_div1 download"><img src="/images/내려받기 아이콘.png"></div>
+					<div class="btn_div2 download"><span>사진 내려받기</span></div></a>
+				</button>
+			</div>
+			
+			<div class="btn-group" style="display: none;">
+				<button type="button" id="photoSendServer" class="btn editor_btn" data-method="getCroppedSend">
+					<div class="btn_div1"><img src="/images/다운로드 아이콘.png"></div>
+					<div class="btn_div2"><span>등록(제출)</span></div>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="image_title">
+		<div class="image_title_div1">
+			<span>편집기</span>
+		</div>
+		<div class="image_title_div3">
+			<span></span>
+		</div>
+		<div class="image_title_div2">
+			<span>미리보기</span>
+		</div>
+	</div>
+	<div class="image_editor">
+		<div class="image_edit">
+			<div id="imgView" class="img_nonbg">
+				<img id="image" src="" alt="">
+			</div>
+		</div>
+		<div class="image_div">
+		</div>
+		<div class="image_preview">
+			<div class="image_preview_sub">
+				<div class="img-preview img_nonbg"> 
+				</div> 
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="modal fade docs-cropped" id="getCroppedCanvasModal" aria-labelledby="getCroppedCanvasTitle" tabindex="-1" style="display: none;" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="getCroppedCanvasTitle">사진 내려받기</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<canvas width="435" height="400"></canvas>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+				<a class="btn btn-primary" id="" href="#" download="">내려받기</a>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script>
+$(function() {
+    $(function init() {  	
+		var console = window.console || { log: function () {} };
+		var URL = window.URL || window.webkitURL;
+		var rotateBtn = $('#rotateBtn');
+		var zoomPlusBtn = $('#zoomPlusBtn');
+		var zoomMinusBtn = $('#zoomMinusBtn');
+				
+		$(document).ready(function () {		
+			var $image = $('#image');
+			var $download = $('#download');
+			
+			// 초기 설정 - 버튼 비활성화 시킴
+			$(".docs-buttons button.btn").attr("disabled", true);
+			$("#photoSendServer").attr("disabled", true);
+			
+			var options = {
+				// Crop Box의 비율설정 Width / Height
+				aspectRatio: 4.3459 / 4,
+				preview: '.img-preview',
+				crop: function (e) {},
+				ready:function(e){
+					var _image =  $image.cropper("getImageData");
+					if( typeof _image !== "undefinded" && (_image.naturalWidth == 434.59 &&  _image.naturalHeight == 400) ){
+						var _canvas = $image.cropper("getCanvasData");
+						// 저장된 걸 불러오거나 내가 원하는 그 사이즈로 들어왔다면 Crop box를 거기에 맞춤
+						$image.cropper("setCropBoxData", { left: _canvas.left, top:_canvas.top, width:434.59, height:400 } );
+					}
+					// 사진, Crop box 이동 가능하도록
+					$image.cropper("setDragMode", "move");
+					// 사진을 불러왔다면 비활성화 된 버튼 활성화
+					$(".docs-buttons button.btn").attr("disabled", false);
+					// 서버 전송 버튼도 활성화
+					$("#photoSendServer").attr("disabled", false);
+				}
+			};
+			
+			$image.cropper(options);
+			
+			var originalImageURL = $('#image').attr('src');
+			var uploadedImageName = 'editImage.png';
+			var uploadedImageType = 'image/png';
+			var uploadedImageURL;
+			
+			
+			// 키보드 설정 - 키보드로 Crop box 이동
+			$(document.body).on('keydown', function (e) {
+				if (e.target !== this || !$image.data('cropper') || this.scrollTop > 400) {
+					return;
+				}
+				switch (e.which) {
+					case 37:
+						e.preventDefault();
+						$image.cropper('move', -1, 0);
+						break;
+
+					case 38:
+						e.preventDefault();
+						$image.cropper('move', 0, -1);
+						break;
+
+					case 39:
+						e.preventDefault();
+						$image.cropper('move', 1, 0);
+						break;
+
+					case 40:
+						e.preventDefault();
+						$image.cropper('move', 0, 1);
+						break;
+				}
+			});
+			$('.docs-buttons').on('click', '[data-method]', function () {
+				var $this = $(this);
+				var data = $this.data();
+				var cropper = $image.data('cropper');
+				var cropped;
+				var $target;
+				var result;
+
+				if ($this.prop('disabled') || $this.hasClass('disabled')) {
+					return;
+				}
+				
+				if (cropper && data.method) {
+					data = $.extend({}, data); // Clone a new one
+					if (typeof data.target !== 'undefined') {
+						$target = $(data.target);
+						if (typeof data.option === 'undefined') {
+							try {
+								data.option = JSON.parse($target.val());
+							} catch (e) {
+								console.log(e.message);
+							}
+						}
+					}
+
+					cropped = cropper.cropped;
+
+					switch (data.method) {
+						// 서버로 전송하는 경우
+						case 'getCroppedSend':
+							data.method2 = 'getCroppedSend';
+						// 사진 다운로드 인 경우
+						case 'getCroppedDownload':
+							data.method = 'getCroppedCanvas';
+							data.option = {width:434.59,height:400};
+						// base64로 가지고 오는 원 소스
+						case 'getCroppedCanvas':
+							if (uploadedImageType === 'image/png') {
+								if (!data.option) {
+									data.option = {};
+								}
+								data.option.fillColor = '#fff';
+							}
+							break;				
+					}
+
+					result = $image.cropper(data.method, data.option, data.secondOption);
+
+					switch (data.method) {
+						
+						// 파일 다운로드
+						case 'getCroppedDownload':
+						case 'getCroppedCanvas':
+							if (result) {
+								var _toData = result.toDataURL().split(";");
+								if( typeof data.method2 !== "undefinded" && data.method2 == "getCroppedSend"){
+									if( confirm("등록하시겠습니까?") ){
+										var formData = new FormData();																		
+										form.method = "post"
+										form.action = "/tool_create"; // 목적지
+										form.submit(); // 제출
+									}
+								}else{
+									if (!$download.hasClass('disabled')) {
+										$download.download = 'editImage.png';
+										$download.attr('href', result.toDataURL(_toData[0]));
+									}
+								}
+							}
+
+							break;
+
+						case 'destroy':
+							if (uploadedImageURL) {
+								URL.revokeObjectURL(uploadedImageURL);
+								uploadedImageURL = '';
+								$image.attr('src', originalImageURL);
+							}
+
+							break;
+					}
+
+					if ($.isPlainObject(result) && $target) {
+						try {
+							$target.val(JSON.stringify(result));
+						} catch (e) {
+							console.log(e.message);
+						}
+					}
+				}
+			});
+			var $inputImage = $('#inputImage');
+			if (URL) {
+				$inputImage.change(function () {
+					var files = this.files;
+					var file;
+					if (!$image.data('cropper')) {
+						return;
+					}
+					
+					if (files && files.length) {
+						file = files[0];
+						if (/^image\/\w+$/.test(file.type)) {
+							uploadedImageName = file.name;
+							uploadedImageType = file.type;
+							if (uploadedImageURL) {
+								URL.revokeObjectURL(uploadedImageURL);
+							}
+							uploadedImageURL = URL.createObjectURL(file);
+							$image.cropper('destroy').attr('src', uploadedImageURL).cropper(options);
+							$inputImage.val('');
+						} else {
+							window.alert('사진파일을 선택해주세요.');
+						}
+					}
+				});
+			} else {
+				$inputImage.prop('disabled', true).parent().addClass('disabled');
+			}
+		
+			rotateBtn.on('click', function() {
+				$image.cropper('rotate', 90);
+			});
+
+			zoomPlusBtn.on('click', function() {
+				$image.cropper('zoom', 0.1);
+			});
+
+			zoomMinusBtn.on('click', function() {
+				$image.cropper('zoom', -0.1);
+			});
+		});
+	});
+});
+</script>
+</html>

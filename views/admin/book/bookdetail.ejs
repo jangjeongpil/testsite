@@ -1,0 +1,277 @@
+<%- include('../../common/adminheader.ejs') %>
+<script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+<title>관리도서 상세 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>관리도서 상세</h1>          
+            <form>
+                <%
+                var data = bookOne;
+                %>
+                <div class="write_table">
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>유형</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.bookType %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>관리번호</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.managementNumber %></span>
+                        </div>                          
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>도서명</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.bookName %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>구매일</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.purchaseDate %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>개정년도</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.revisionYear %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>목차 링크</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.link %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>사용자</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.user %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>이미지 등록</span>
+                        </div>
+                        <div class="write_table_div2_modify" style="height: 520px;">
+                            <span><% if(data.imagename != "") { %><img src="/uploads/<%= data.imagename %>" style="width:90%; margin-top: 10px"><% } %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>비고</span>
+                        </div>
+                        <div class="write_table_div2_modify">
+                            <span><%= data.reference %></span>
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_btn">
+                        <a href="/admin/book/modify?managementNumber=<%= data.managementNumber %>">
+                            <span>도서수정</span>
+                        </a>
+                        <a id="excel_downBtn" href="javascript:void(0);">
+                            <span>엑셀다운</span>
+                        </a>
+                        <a href="/admin/book">
+                            <span>돌아가기</span>
+                        </a>
+                    </div>
+                    <div style="font-size: 12px;">작성자: <%= data.writer %> / 작성일: <%=data.date %> / 수정자: <%= data.modifier %> / 수정일: <%=data.modifydate %></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<table id="excel_table" style="display: none;">
+    <thead>
+        <tr>
+            <th>유형</th>
+            <th>관리번호</th>
+            <th>도서명</th>
+            <th>구매일</th>
+            <th>개정년도</th>
+            <th>목차 링크</th>
+            <th>사용자</th>
+            <th>비고</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><%= data.bookType %></td>
+            <td><%= data.managementNumber %></td>
+            <td><%= data.bookName %></td>
+            <td><%= data.purchaseDate %></td>
+            <td><%= data.revisionYear %></td>
+            <td><%= data.link %></td>
+            <td><%= data.user %></td>
+            <td><%= data.reference %></td>
+        </tr> 
+    </tbody>
+</table>
+<script>
+$(function() {
+    $(function init() {       
+        function download() {
+            // 대상 테이블을 가져옴
+            var table = $('#excel_table');
+            
+            if(table) {
+                // CASE 대상 테이블이 존재하는 경우
+                
+                // 엑셀다운 (엑셀파일명, 시트명, 내부데이터 HTML)
+                _excelDown("도서상세정보.xls", "도서상세정보", table[0].outerHTML)
+            }
+        }
+
+        var excel_downBtn = $('#excel_downBtn');
+        excel_downBtn.on('click', function() {
+            download();
+        });
+    });
+});
+</script>
+<%- include('../../common/adminfooter.ejs') %>

@@ -1,0 +1,162 @@
+<%- include('../../common/adminheader.ejs') %>
+<script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+<title>도서 반납신청 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>도서 반납신청</h1>          
+            <form method="POST" action="/book_return_apply" onsubmit="return contentsCheck();">
+                <div class="write_table">
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>반납유무 숨김</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="returnYN" value="N">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>신청자</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="user" name="user" value="<%= loginMember.name %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>반납신청일</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="returnDate" name="returnDate" value="" onKeyup="this.value=this.value.replace(/[^[0-9]/g, '');" maxlength="8">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="returnDateMessage">※ 반납신청일을 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>관리번호</span>
+                        </div>
+                        <div class="write_table_div2_option" style="width: 45%;">
+                            <select name="managementNumber" id="selectNumber" title="selectNumber">
+                                <option value="">선택</option>
+                                <% 
+                                for(var i = 0; i < bookList.length; i++) {
+                                    var data = bookList[i];
+                                    if(data.useYN == "Y" && data.user == loginMember.name) {                                    
+                                %>
+                                    <option class="<%= data.bookType %>" value="<%= data.managementNumber %>" 
+                                        <%
+                                        if(useNumber != "") {
+                                            if(useNumber.managementNumber == data.managementNumber) {
+                                        %>
+                                        selected
+                                        <%
+                                            }                                      
+                                        }
+                                        %>
+                                    >
+                                    <%= data.managementNumber %>
+                                    </option>
+                                <% 
+                                    }
+                                }
+                                %> 
+                            </select>
+                        </div>               
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span></span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_btn">
+                        <input type="submit" value="반납신청"/>
+                        <a id="cancelBtn" href="/admin/book">
+                            <span>돌아가기</span>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+// 필수사항 입력 체크 함수    
+function contentsCheck() {
+    if($('#returnDate').val() == "" || $('#selectNumber').val() == "") {
+        alert('필수항목을 입력해해주세요.');
+        return false;
+    }
+}
+
+$(function() {
+    $(function init() {  
+        // 반납일 오늘 날짜 자동기입
+        $('#returnDate').attr('value', todayDate());
+
+        // 날짜 플래터 적용
+        $('#returnDate').change(function() {
+            var $this =  $('#returnDate').val();
+            var formatdate = dayformat($this);
+            $('#returnDate').val(formatdate);
+        });
+
+        // 데이터 유무에 따른 알림 메시지 공개/비공개
+        if($('#returnDate').val() != "") {
+            $('#returnDateMessage').css('display', 'none');
+        }else {
+            $('#returnDateMessage').css('display', 'block');
+        }
+
+        // 데이터 유무에 따른 알림 메시지 공개/비공개
+        $('#returnDate').change(function() {
+            if($('#returnDate').val() != "") {
+                $('#returnDateMessage').css('display', 'none');
+            }else {
+                $('#returnDateMessage').css('display', 'block');
+            }
+        });    
+    });
+});         
+</script>
+<%- include('../../common/adminfooter.ejs') %>

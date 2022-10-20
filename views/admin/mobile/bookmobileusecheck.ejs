@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/ico.jpg" type="image/ico" />
+    <link href="/css/mobile.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+</head>
+<title>도서 대여확인 페이지 - 테스트용 사이트</title>
+<body>
+    <div class="adminwrap mobilemain"> 
+        <div class="admin_body">
+            <div class="admin_content">
+                <div class="admin_contentwrap">
+                    <div style="text-align: center;">
+                        <h1>도서 대여확인</h1>
+                    </div>
+                    <div class="btn_table_btn"> 
+                        <a class="a2" id="allcheck_column">전체선택</a>
+                        <a class="page-title-action" id="use_check">대여승인</a>
+                        <a class="page-title-action" id="use_refuse">대여반려</a>
+                    </div>    
+                    <table class="admin_board" style="font-size: 13px;">
+                        <colgroup>
+                            <col width="25%">
+                            <col width="25%">
+                            <col width="25%">
+                            <col width="25%">
+                        </colgroup>
+                        <% 
+                        for(var i = 0; i < bookList.length; i++) {
+                        var data = bookList[i];
+                            if(data.useYN != "Y" && data.user != "") {       
+                        %>
+                        <tbody class="adminboard_body boardlist" style="font-size: 13px;">
+                            <tr>
+                                <th colspan="4" style="border-right: none;">
+                                    <span><% if(data.imagename != "") { %><img src="/uploads/<%= data.imagename %>" style="width:60%; margin-top: 10px"><% } %></span>
+                                </th>
+                            </tr> 
+                            <tr>
+                                <th>선택</th>
+                                <td style="text-align: center;;">
+                                    <label class="screen-reader-text" for="cb<%= i %>"></label>
+                                    <input id="cb<%= i %>" class="checkbox" type="checkbox" name="useCheckbox" value="<%= data.managementNumber %>">
+                                </td>
+                                <th>이력</th>   
+                                <td style="text-align: center; border-right: none;">
+                                    <a class="historyBtn" data-bookHistory="<%= data.bookHistory %>" href="javascript:void(0);">[이력]</a>  
+                                </td>          
+                            </tr>
+                            <tr>
+                                <th>유형</th>
+                                <td><span><%= data.bookType %></span></td>
+                                <th>관리번호</th>
+                                <td style="border-right: none;">
+                                    <span>
+                                        <a class="modal_open" 
+                                            data-imagename="<%= data.imagename %>" data-bookType="<%= data.bookType %>" data-managementNumber="<%= data.managementNumber %>"
+                                            data-bookName="<%= data.bookName %>" data-purchaseDate="<%= data.purchaseDate %>" data-revisionYear="<%= data.revisionYear %>"
+                                            data-user="<%= data.user %>" data-link="<%= data.link %>" data-reference="<%= data.reference %>">                         
+                                        <%= data.managementNumber %></a>
+                                    </span>
+                                </td>          
+                            </tr>   
+                            <tr>
+                                <th>도서명</th>
+                                <td colspan="3" style="border-right: none;"><span><%= data.bookName %></span></td>            
+                            </tr>
+                            <tr>
+                                <th>개정년도</th>
+                                <td><span><%= data.revisionYear %></span></td>
+                                <th>대여유무</th>
+                                <td style="border-right: none;"><span><%= data.useYN %></span></td>                
+                            </tr>  
+                            <tr>
+                                <th>목차</th>
+                                <td style="text-align: center;"><span><a href="<%= data.link %>" target="_blank">[링크]</a></span></td>
+                                <th>대여신청일</th>
+                                <td style="border-right: none;"><span><%= data.useStartDate %></span></td>          
+                            </tr>  
+                            <tr>
+                                <th colspan="4" style="border-top: none; border-left: none; border-right: none;"></th>        
+                            </tr>                                     
+                        </tbody>
+                        <% 
+                            } 
+                        }
+                        %>
+                        <tbody class="adminboard_body moreBtn" style="font-size: 15px;">
+                            <tr>
+                                <td id="moreBtn" colspan="4" style="text-align:center; border-left: 1px solid #c3c4c7;">
+                                    더보기
+                                </td>
+                            </tr>
+                        </tbody>  
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include('mobilehistory.ejs') %>    
+<%- include('bookmobiledetail.ejs') %>
+</body>
+<script>
+$(function() {
+    $(function init() {
+        var moreBtn = $('#moreBtn');
+
+        $(".boardlist").slice(0, 5).show();
+        if($(".boardlist:hidden").length == 0){
+            $('.moreBtn').hide();
+            $('#moreBtn').hide();
+        }
+        moreBtn.on('click', function(e) {
+            e.preventDefault();
+            $(".boardlist:hidden").slice(0, 5).show();
+            if($(".boardlist:hidden").length == 0){
+                $('.moreBtn').hide();
+                $('#moreBtn').hide();
+            }
+        });
+
+        var historyBtn = $('.historyBtn');
+        var close_historyBtn = $('#close_historyBtn');
+        var mobile_historymodal = $('.mobile_historymodal');
+
+        historyBtn.on('click', function() {
+            var $this = $(this);
+            var bookHistory = $this.data('bookhistory');
+            var modal_bookHistory = $('#modal_history');
+            if(bookHistory != "") { 
+                var split = bookHistory.split(',');
+                var text_split = '';
+                for(var i = 0; i < split.length; i++) {
+                    text_split += split[i] + '\n';
+                }
+                modal_bookHistory.text(text_split);
+            }
+            mobile_historymodal.show();
+            mobilemain.hide();
+        });
+
+        close_historyBtn.on('click', function() {
+            var modal_bookHistory = $('#modal_history');
+            modal_bookHistory.text('');
+            mobile_historymodal.hide();
+            mobilemain.show();
+        });
+
+        var mobilemain = $('.mobilemain');
+        var mobilemodal = $('.mobilemodal');
+        var modal_open = $('.modal_open');
+        var modal_exitBtn = $('#modal_exitBtn');
+    
+        modal_open.on('click', function() {
+            var $this = $(this);
+            var imagename = $this.data('imagename');
+            var bookType = $this.data('booktype');
+            var managementNumber = $this.data('managementnumber');
+            var bookName = $this.data('bookname');
+            var purchaseDate = $this.data('purchasedate');
+            var revisionYear = $this.data('revisionyear');
+            var user = $this.data('user');
+            var link = $this.data('link');
+            var reference = $this.data('reference');
+
+            $('#modal_image').attr("src", "/uploads/" + imagename);
+            $('#modal_bookType').text(bookType);
+            $('#modal_managementNumber').text(managementNumber);
+            $('#modal_bookName').text(bookName);
+            $('#modal_purchaseDate').text(purchaseDate);
+            $('#modal_revisionYear').text(revisionYear);
+            $('#modal_user').text(user);
+            $('#modal_link').attr("href", link);
+            $('#modal_reference').text(reference);
+
+            mobilemodal.show();
+            mobilemain.hide();
+        });
+
+        modal_exitBtn.on('click', function() {
+            mobilemodal.hide();
+            mobilemain.show();
+        });
+
+        var allcheck_column = $('#allcheck_column'); // 전체 선택
+        var use_check = $('#use_check'); // 사용승인 버튼
+        var use_refuse = $('#use_refuse'); // 사용반려 버튼
+        var checkCnt = 0;
+
+        // 전체 선택 클릭 시 컬럼 전체 선택/해제
+        allcheck_column.on('click', function() {
+            if(checkCnt == 0) {
+                $("input[name=useCheckbox]").prop("checked", true);
+                checkCnt = 1;
+            }else {
+                $("input[name=useCheckbox]").prop("checked", false);
+                checkCnt = 0;
+            }
+        });
+
+        // 대여승인 버튼 클릭 시 대여승인 처리(POST 전송)
+        use_check.on('click', function() {
+            var dataArray = [];
+
+            $("input[name=useCheckbox]:checked").each(function() {
+                var $this = $(this);
+                dataArray.push({managementNumber: $this.val()});
+            });
+            dataArray = JSON.stringify(dataArray);
+            
+            $.ajax({
+                type: "POST",
+                url: '/book_use_approval',
+                headers: {
+                    "Content-Type": "application/json"
+                },                
+                data: dataArray
+            });
+            location.href = "/admin/book/mobile_use_check";      
+        });
+
+        // 대여반려 버튼 클릭 시 대여반려 처리(POST 전송)
+        use_refuse.on('click', function() {
+            var refuseArray = [];
+
+            $("input[name=useCheckbox]:checked").each(function() {
+                var $this = $(this);
+                refuseArray.push({managementNumber: $this.val()});
+            });
+            refuseArray = JSON.stringify(refuseArray);
+
+            $.ajax({
+                type: "POST",
+                url: '/book_use_refuse',
+                headers: {
+                    "Content-Type": "application/json"
+                },                
+                data: refuseArray
+            });
+            location.href = "/admin/book/mobile_use_check";   
+        });
+    });
+});
+</script>
+</html>

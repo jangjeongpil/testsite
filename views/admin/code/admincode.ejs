@@ -1,0 +1,113 @@
+<%- include('../../common/adminheader.ejs') %>
+<title>공통코드 관리 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>공통코드 관리 페이지</h1>          
+            <form>
+                <div class="btn_table" style="width:688px;">
+                    <div class="btn_table_title">
+                        <span>공통코드 목록</span>
+                    </div>    
+                    <div class="btn_table_btn">
+                        <a class="page-title-action" href="/admin/code/write">코드추가</a>
+                        <a class="page-title-action" id="deleteBtn">코드삭제</a>
+                    </div>            
+                </div>
+                <table class="admin_board" style="width: 700px; font-size: 13px;">
+                    <thead>
+                        <tr>
+                            <th class="allcheck">
+                                <label class="allcheck_column" for="allcheck_column">모두 선택</label>
+                                <input class="allcheck_column_input" id="allcheck_column" type="checkbox">
+                            </th>
+                            <th class="adminboard_head" style="width: 40%; font-size: 14px;">
+                                <span>공통코드명</span>
+                            </th>  
+                            <th class="adminboard_head" style="width: 15%;">
+                                <span>작성자</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 15%;">
+                                <span>작성일</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 15%;">
+                                <span>수정자</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 15%; border-right: none;">
+                                <span>수정일</span>
+                            </th>                                
+                        </tr>
+                    </thead>
+                    <tbody class="adminboard_body" style="font-size: 12px;">
+                        <% 
+                        for(var i = 0; i < codeList.length; i++) {
+                        var data = codeList[i];
+                        %>
+                        <tr>
+                            <th>
+                                <label class="screen-reader-text" for="cb<%= i %>"></label>
+                                <input id="cb<%= i %>" class="checkbox" type="checkbox" name="deleteCheckbox" value="<%= data.codeName %>">    
+                            </th>
+                            <td>
+                                <span><a href="/admin/code/modify?codeName=<%= data.codeName %>"><%= data.codeName %></a></span>    
+                            </td>  
+                            <td>
+                                <span><%= data.writer %></span>
+                            </td>
+                            <td>
+                                <span><%= data.date %></span>
+                            </td>
+                            <td>
+                                <span><%= data.modifier %></span>
+                            </td>
+                            <td>
+                                <span><%= data.modifydate %></span>
+                            </td>               
+                        </tr>
+                        <% } %>
+                    </tbody>
+               </table>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+$(function() {
+    $(function init() {  
+        var allcheck_column = $('#allcheck_column'); // 전체 선택
+        var deleteBtn = $('#deleteBtn'); // 공통코드 삭제 버튼
+
+        // 전체 선택 클릭 시 컬럼 전체 선택/해제
+        allcheck_column.on('click', function() {
+            if(allcheck_column.is(":checked")) {
+                $("input[name=deleteCheckbox]").prop("checked", true);
+            }else {
+                $("input[name=deleteCheckbox]").prop("checked", false);
+            }
+        });
+
+        // 공통코드 삭제 버튼 클릭 시 코드 삭제 처리(POST 전송)
+        deleteBtn.on('click', function() {
+            var dataArray = [];
+
+            $("input[name=deleteCheckbox]:checked").each(function() {
+                var $this = $(this);
+                dataArray.push({codeName: $this.val()});
+            });
+            dataArray = JSON.stringify(dataArray);
+
+            $.ajax({
+                type: "POST",
+                url: '/code_checkdelete',
+                headers: {
+                    "Content-Type": "application/json"
+                },                
+                data: dataArray
+            });
+            location.href = "/admin/code";  
+        });
+    });
+});                
+</script>
+<%- include('../../common/adminfooter.ejs') %>

@@ -1,0 +1,124 @@
+<%- include('../../common/adminheader.ejs') %>
+<script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
+<title>관리자 알림 설정 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>관리자 알림 설정 페이지</h1>
+                <div class="btn_table" style="width:688px;">
+                    <div class="btn_table_title">
+                        <span>알림 관리자 목록</span>
+                    </div>
+                    <div class="btn_table_btn"> 
+                        <a class="page-title-action" href="javascript:void(0);" id="selectBtn">알림 관리자 설정</a>
+                        <a class="page-title-action" href="javascript:void(0);" id="cancelBtn">알림 관리자 해제</a>
+                    </div>                
+                </div>
+                <table class="admin_board" style="width: 700px; font-size: 13px;">
+                    <thead>
+                        <tr>
+                            <th class="allcheck">
+                                <label class="allcheck_column" for="allcheck_column">모두 선택</label>
+                                <input class="allcheck_column_input" id="allcheck_column" type="checkbox">
+                            </th>
+                            <th class="adminboard_head" style="width: 30%; font-size: 14px;">
+                                <span>관리자 이름</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 30%; font-size: 14px;">
+                                <span>관리자 등급</span>
+                            </th>
+                            <th class="adminboard_head" style="width: 40%; font-size: 14px; border-right: none;">
+                                <span>알림 관리자 설정 유무</span>
+                            </th>                                  
+                        </tr>
+                    </thead>
+                    <tbody class="adminboard_body" style="font-size: 12px;">
+                        <%
+                        for(var i = 0; i < adminList.length; i++) {
+                            var data = adminList[i];
+                        %>
+                        <tr>
+                            <th>
+                                <label class="screen-reader-text" for="cb<%= i %>"></label>
+                                <input id="cb<%= i %>" class="checkbox" type="checkbox" name="selectCheckbox" value="<%= data.email %>">    
+                            </th>
+                            <td>
+                                <span><%= data.name %></span>    
+                            </td> 
+                            <td>
+                                <span><%= data.adminlevel %></span>    
+                            </td>     
+                            <td>
+                                <span><%= data.botAdmin %></span>    
+                            </td>                      
+                        </tr>
+                        <%
+                        }
+                        %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<script>
+$(function() {
+    $(function init() {        
+        var allcheck_column = $('#allcheck_column'); // 전체 선택
+        var selectBtn = $('#selectBtn'); // 알림 관리자 선택 버튼
+        var cancelBtn = $('#cancelBtn'); // 알림 관리자 해제 버튼
+
+        // 전체 선택 클릭 시 컬럼 전체 선택/해제
+        allcheck_column.on('click', function() {
+            if(allcheck_column.is(":checked")) {
+                $("input[name=selectCheckbox]").prop("checked", true);
+            }else {
+                $("input[name=selectCheckbox]").prop("checked", false);
+            }
+        });
+
+        // 대표도서 선택 버튼 클릭 시 대표도서 등록 처리(POST 전송)
+        selectBtn.on('click', function() {
+            var dataArray = [];
+
+            $("input[name=selectCheckbox]:checked").each(function() {
+                var $this = $(this);
+                dataArray.push({email: $this.val()});
+            });
+            dataArray = JSON.stringify(dataArray);
+
+            $.ajax({
+                type: "POST",
+                url: '/bot_select_admin',
+                headers: {
+                    "Content-Type": "application/json"
+                },                
+                data: dataArray
+            });
+            location.href = "/admin/bot/selectadmin";
+        });
+
+        // 대표도서 해제 버튼 클릭 시 대표도서 해제 처리(POST 전송)
+        cancelBtn.on('click', function() {
+            var refuseArray = [];
+
+            $("input[name=selectCheckbox]:checked").each(function() {
+                var $this = $(this);
+                refuseArray.push({email: $this.val()});
+            });
+            refuseArray = JSON.stringify(refuseArray);
+                        
+            $.ajax({
+                type: "POST",
+                url: '/bot_cancel_admin',
+                headers: {
+                    "Content-Type": "application/json"
+                },                
+                data: refuseArray
+            });
+            location.href = "/admin/bot/selectadmin";
+        });
+    });
+});      
+</script>
+<%- include('../../common/adminfooter.ejs') %>

@@ -1,0 +1,121 @@
+<%- include('../../common/adminheader.ejs') %>
+<title>공통코드 추가 페이지 - 테스트용 사이트</title>
+
+<div class="admin_body">
+    <div class="admin_content">
+        <div class="admin_contentwrap">
+            <h1>공통코드 추가</h1>          
+            <form method="POST" action="/code_create" onsubmit="return contentsCheck();">
+                <div class="write_table addBtn" style="border-top: 1px solid #c3c4c7; border-left:1px solid #c3c4c7; border-right: 1px solid #c3c4c7; border-bottom: none;">
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>코드명</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="codeName" name="codeName" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="message_table_div">
+                        <div class="message_table_div1">
+                        
+                        </div>
+                        <div class="message_table_div2">
+                            <span id="codeMessage">※ 코드명을 입력해주세요.</span>
+                        </div>
+                        <div class="message_table_div3">
+                        
+                        </div>
+                    </div>
+                    <div class="write_table_div">
+                        <div class="write_table_div1">
+                            <span>코드항목</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" id="codeOption" name="codeOption" value=""><input type="button" class="btnAdd" value="추가">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>작성자명</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="writer" value="<%= loginMember.name %>">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                    <div class="write_table_div" style="display: none;">
+                        <div class="write_table_div1">
+                            <span>작성일</span>
+                        </div>
+                        <div class="write_table_div2">
+                            <input type="text" name="date" id="date" value="">
+                        </div>
+                        <div class="write_table_div3">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="write_table_btn" style="width: 1198px; background: #FFF; border-left: 1px solid #c3c4c7; border-right: 1px solid #c3c4c7; border-bottom: 1px solid #c3c4c7;">
+                    <input type="submit" value="등록" style="margin-left: 30px; margin-bottom: 50px;"/>
+                    <a href="/admin/code" style="margin-bottom: 50px;">
+                        <span>돌아가기</span>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+// 필수사항 입력 체크 함수    
+function contentsCheck() {
+    var codeName = $('#codeName').val();
+    var codeOption = $('#codeOption').val();
+    if(codeName == "" || codeOption == "") {
+        alert('필수항목을 입력해주세요.');
+        return false;
+    }
+}
+
+$(function() {
+    $(function init() {  
+        // 작성일 오늘 날짜 자동기입
+        $('#date').attr('value', todayDate());        
+        
+        // 데이터 유무에 따른 알림 메시지 공개/비공개
+        $('#codeName').change(function() {
+            if($('#codeName').val() != "") {
+                $('#codeMessage').css('display', 'none');
+            }else {
+                $('#codeMessage').css('display', 'block');
+            }
+        }); 
+        
+        function btnRemove() {
+            // 입력 컬럼 삭제
+            $('.btnRemove').on('click', function() { 
+                var $this = $(this);
+                $this.parent().prev().parent().remove();
+            });
+        }
+
+        // 입력 컬럼 추가               
+        $('.btnAdd').click(function() {                                        
+            $('.addBtn').append ('<div class="write_table_div"><div class="write_table_div1">'+
+                '<span></span></div><div class="write_table_div2"><input type="text" name="codeOption" value="">'+
+                    '<input type="button" class="btnRemove" value="삭제"></div><div class="write_table_div3"></div></div>'                 
+            ); // end append   
+            btnRemove();
+        });
+        btnRemove();   
+    });
+});       
+</script>
+<%- include('../../common/adminfooter.ejs') %>
